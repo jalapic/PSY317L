@@ -1,23 +1,13 @@
 ## Line graph - connecting values (y-axis) over time (x-axis)
 
-library(babynames)
-jennifer <- babynames %>% filter(name=="Jennifer" & sex=="F")
-jennifer$sex <- gsub("F", "Female", jennifer$sex)
-write.csv(jennifer,"jennifer.csv",row.names = F)
+library(tidyverse)
 
-
-jenlinda <- babynames %>% filter(name=="Jennifer" | name=="Linda") %>%
-  filter(sex=="F")
-
-jenlinda$sex <- gsub("F", "Female", jenlinda$sex)
-write.csv(jenlinda,"jenlinda.csv",row.names = F)
-
-
-jennifer <- read_csv("jennifer.csv")
+jennifer <- read_csv("data/jennifer.csv")
 
 
 head(jennifer)
 tail(jennifer)
+
 
 # Let's build up a line graph
 ggplot()
@@ -48,10 +38,11 @@ ggplot(jennifer, aes(x=year, y=n) ) +
   geom_line(color = "purple") 
 
 
-# this doesn't color points purple though
+# change both colors
 ggplot(jennifer, aes(x=year, y=n) ) + 
   geom_point(color = "violet") +
   geom_line(color = "purple") 
+
 
 
 # Customize axis labels and title
@@ -84,7 +75,7 @@ ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lty=4)
 
 ## Plotting multiple lines on same graph
 
-jenlinda <- read_csv("jenlinda.csv")
+jenlinda <- read_csv("data/jenlinda.csv")
 
 head(jenlinda)
 tail(jenlinda)
@@ -106,12 +97,29 @@ ggplot(jenlinda, aes(x=year, y=n, color=name)) +
 
 # remove the blanks, and replace with the appropriate word.
 
-# 1. For the covid19austin dataset, 
-covid19austin <- read_csv("covid19austin.csv")
-head(covid19austin)
-tail(covid19austin)
+# 1. Import the texascovid dataset. This gives the cumulative number of deaths from covid19 for all of Texas (as of June 6th). The day column is the number of days since March 4th 2020.
+
+# you may get a 'warning' about the Date column - it's ok.
+
+covid.df <- read_csv("data/texascovid.csv")
+
+head(covid.df)
+tail(covid.df)
+
+# plot a line graph of day (x-axis) against total (y-axis)
+
+ggplot(_____, aes(x= _____, y= ______)) + geom_line()
 
 
-# 2. 
+# 2. Import the countycovid dataset.
+
+covid.county <- read_csv("data/countycovid.csv")
+
+head(covid.county)
+tail(covid.county)
+
+# plot a line graph of day (x-axis) against total (y-axis), and make separate lines for each county.
 
 
+ggplot(_____, aes(x= _____, y= ______, color = _______)) + 
+  geom_line()
