@@ -1,93 +1,83 @@
-## Line graph - connecting values (y-axis) over time (x-axis)
+## Working with colors in R
 
 library(tidyverse)
 
-jennifer <- read_csv("data/jennifer.csv")
+
+## What different colors can you use in R ?
 
 
-head(jennifer)
-tail(jennifer)
+# start with a basic scatterplot....
+
+cheese <- read_csv("data/cheese.csv")
+head(cheese)
+
+ggplot(cheese, aes(x=sat_fat, y=chol) ) + geom_point()
 
 
-# Let's build up a line graph
-ggplot()
+# 1. adding a name by color name
+ggplot(cheese, aes(x=sat_fat, y=chol) ) + geom_point(color = "purple")
 
-ggplot(jennifer) 
 
-ggplot(jennifer, aes() ) 
+# you can look up color names here:
+# http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
+ggplot(cheese, aes(x=sat_fat, y=chol) ) + geom_point(color = "darkcyan")
 
-ggplot(jennifer, aes(x=year, y=n) ) 
 
-ggplot(jennifer, aes(x=year, y=n) ) + geom_point() # look at data as points
+# 2. you can enter a hex code.
+# e.g. use google's color picker
+# you need to include the #
 
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line() # instead use a line
+ggplot(cheese, aes(x=sat_fat, y=chol) ) + geom_point(color = "#1ed427")
 
-# Can add point and line
-ggplot(jennifer, aes(x=year, y=n) ) + 
+
+
+
+
+###  Manually Selecting Colors with groups.
+
+
+## Let's use a dataset on penguins:
+
+penguins <- read_csv("data/penguins.csv")
+
+head(penguins)
+
+
+ggplot(penguins, aes(x = body_mass_g,  y = flipper_length_mm, color = species) ) +
+  geom_point()
+
+
+# make sure you supply the same number of colors as categories
+
+ggplot(penguins, aes(x = body_mass_g,  y = flipper_length_mm, color = species) ) +
   geom_point() +
-  geom_line() 
-
-
-# Can Change Color of Line
-ggplot(jennifer, aes(x=year, y=n) ) + 
-  geom_line(color = "purple")
-
-# this doesn't color points though
-ggplot(jennifer, aes(x=year, y=n) ) + 
-  geom_point() +
-  geom_line(color = "purple") 
-
-
-# change both colors
-ggplot(jennifer, aes(x=year, y=n) ) + 
-  geom_point(color = "violet") +
-  geom_line(color = "purple") 
+  scale_color_manual(values = c("forestgreen", "deepskyblue", "coral"))
 
 
 
-# Customize axis labels and title
-ggplot(jennifer, aes(x=year, y=n) ) + 
-  geom_line(color = "purple") +
-  xlab("Year") +
-  ylab("Number of Children Born") +
-  ggtitle("Popularity of Name Jennifer in USA")
+
+## Line Graph Example
+
+covid.county <- read_csv("data/countycovid.csv")
+head(covid.county)
+
+ggplot(covid.county, aes(x=day, y=total, color=county)) + 
+  geom_line()
+
+# supply the same number of colors as categories...
+ggplot(covid.county, aes(x=day, y=total, color=county)) + 
+  geom_line() +
+  scale_color_manual(values = c("red", "blueviolet", "darkorange2"))
 
 
-# Change width of lines
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line()
-
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lwd=2)
-
-ggplot(jennifer, aes(x=year, y=n) ) + 
-  geom_line(color = 'purple', lwd=2)
-
-
-# Change style of lines
-
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line()
-
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lty=1)
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lty=2)
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lty=3)
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lty=4)
+# you can mix names and hexcodes...
+ggplot(covid.county, aes(x=day, y=total, color=county)) + 
+  geom_line() +
+  scale_color_manual(values = c("red", "#888aeb", "darkorange2"))
 
 
 
-## Plotting multiple lines on same graph
 
-jenlinda <- read_csv("data/jenlinda.csv")
-
-head(jenlinda)
-tail(jenlinda)
-
-ggplot(jenlinda, aes(x=year, y=n, color=name)) + geom_line()
-
-
-ggplot(jenlinda, aes(x=year, y=n, color=name)) + 
-  geom_line()+
-  xlab("Year") +
-  ylab("Number of Children Born") +
-  ggtitle("Popularity of Names Jennifer & Linda in USA")
 
 
 ####################----------------------------##########################
@@ -97,29 +87,18 @@ ggplot(jenlinda, aes(x=year, y=n, color=name)) +
 
 # remove the blanks, and replace with the appropriate word.
 
-# 1. Import the texascovid dataset. This gives the cumulative number of deaths from covid19 for all of Texas (as of June 6th). The day column is the number of days since March 4th 2020.
+# 1. For the cheese dataset, change the color of the points using a hexcode of your choice.
 
-# you may get a 'warning' about the Date column - it's ok.
-
-covid.df <- read_csv("data/texascovid.csv")
-
-head(covid.df)
-tail(covid.df)
-
-# plot a line graph of day (x-axis) against total (y-axis)
-
-ggplot(_____, aes(x= _____, y= ______)) + geom_line()
+ggplot(cheese, aes(x=sat_fat, y=chol) ) + geom_point(color = ______)
 
 
-# 2. Import the countycovid dataset.
 
-covid.county <- read_csv("data/countycovid.csv")
+# 2. For the penguins dataset, plot culmen_length_mm against culmen_depth_mm and color points by species 
+# Pick your own colors
 
-head(covid.county)
-tail(covid.county)
+ggplot(______, aes(x = ______, y = __________, color = ____________) ) +
+  geom_point() + 
+  scale_color_manual(values = c(_________,  ___________))
 
-# plot a line graph of day (x-axis) against total (y-axis), and make separate lines for each county.
 
 
-ggplot(_____, aes(x= _____, y= ______, color = _______)) + 
-  geom_line()

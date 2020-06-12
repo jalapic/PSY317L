@@ -2,6 +2,69 @@
 
 library(tidyverse)
 
+## Gapminder ?
+
+
+# line graph example
+
+# scatterplot example
+
+
+
+### Some Fill in the gap examples
+
+## Data
+library(babynames)
+head(babynames)
+tail(babynames)
+
+girls <- subset(babynames, sex=="F")
+girls
+
+boys <- subset(babynames, sex=="M")
+boys
+
+since1950 <- subset(babynames, year>=1950)
+since1950
+
+
+## Number of unique names per year.
+
+ggplot(boys)
+
+ggplot(boys, aes(x=year))
+
+ggplot(boys, aes(x=year)) + geom_bar()
+
+ggplot(girls, aes(x=year)) + geom_bar()
+
+ggplot(babynames, aes(x=year)) + geom_bar() + facet_wrap(~sex)
+
+ggplot(babynames, aes(x=year)) + geom_bar(width=.7) + facet_wrap(~sex)
+
+
+
+#girls boys on same chart
+ggplot(since1950, aes(x=year, fill=sex)) + geom_bar()
+
+ggplot(since1950, aes(x=year, fill=sex)) + geom_bar(position='dodge')
+
+
+## If counts are pre-known use stat= identity
+
+patricia <- babynames %>% filter(name=="Patricia")
+
+patricia
+
+patricia %>% arrange(-n)
+
+ggplot(patricia, aes(x=year, y=n)) + geom_bar(stat='identity')
+
+ggplot(patricia, aes(x=year, y=n)) + geom_bar(stat='identity', color='black', lwd=.5, fill='gray33',width=.9)
+
+
+
+
 jennifer <- read_csv("data/jennifer.csv")
 
 
