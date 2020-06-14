@@ -1,19 +1,35 @@
+#### Multiple Correlations
+
+# Sometimes you wish to examine multiple correlations
+# it can be annoying to type out cor.test() multiple times.
+# you can look at multiple correlations at once.
 
 
+### loading libraries ----
+
+library(tidyverse)
+library(Hmisc) # for multiple correlations.
+library(psych)
 
 
-#############################
+### loading data ----
+
+jays <- read_csv("data/BlueJays.csv")
+
+jayM <- jays %>% filter(KnownSex == "M") # we'll just look at Males
+
+nrow(jayM) # 63 observations
+
+head(jayM)
 
 
-
-
-
+## One correlation e.g.
+cor.test(jayM$Mass, jayM$Head)
 
 
 ## Getting a correlation matrix.----
 
 # We can actually get the correlations between all numerical columns at once.
-
 
 head(jayM)
 
@@ -29,55 +45,26 @@ plot(jayM[,3:8]) # and this plots them all.
 
 
 
-
-
-
 ## A matrix of correlation values and p-values----
 
+as.matrix(jayM[,3:8]) # you have to put as.matrix() around your data
 
-#examMatrix <- as.matrix(exams[, c("exam", "anxiety", "revise")])
+jaydata <- as.matrix(jayM[,3:8]) # you have to put as.matrix() around your data
 
-examMatrix <- as.matrix(exams[, 2:4])  # converts data into a 'matrix' format
+ 
+Hmisc::rcorr(jaydata) # use 'rcorr' from package Hmisc
 
-Hmisc::rcorr(examMatrix) # use 'rcorr' from package Hmisc
-
-
-#         revise  exam anxiety
-# revise    1.00  0.40   -0.66
-# exam      0.40  1.00   -0.43
-# anxiety  -0.66 -0.43    1.00
-# 
-# n
-#         revise exam anxiety
-# revise     103  103     102
-# exam       103  103     102
-# anxiety    102  102     102
-# 
-# P
-#         revise exam anxiety
-# revise          0    0     
-# exam     0           0     
-# anxiety  0      0          
-
-
-
-Hmisc::rcorr(examMatrix, type="spearman")
-
-
-
-# we can also get quick inspection of all relevant scatterplots by choosing columns of interest
-plot(exams[,2:4]) 
-plot(exams[c(2,3,4)]) #another way of writing the above line - better if have non consecutive columns
-
-
+Hmisc::rcorr(jaydata, type="spearman")  # to do non-parametric
 
 
 
 ## Controlling for multiple comparisons ----
 
-psych::corr.test(examMatrix, method="spearman", adjust="holm")
+# use 'corr.test' from psych package
 
-psych::corr.test(examMatrix, method="spearman", adjust="bonferroni")
+corr.test(jaydata, method="pearson", adjust="holm")
+
+corr.test(jaydata, method="spearman", adjust="bonferroni")
 
 # What adjustment for multiple tests should be used? 
 # ("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none"). 
