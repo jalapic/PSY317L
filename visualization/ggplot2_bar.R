@@ -28,7 +28,7 @@ ggplot(df, aes(x = name, y = total) ) + geom_col()
 
 
 
-## notice defult order is alphabetical.
+## notice default order is alphabetical.
 
 # you can reorder by putting reorder around the x-axis column...
 
@@ -152,12 +152,13 @@ ggplot(pets, aes(pet)) +
 skittles <- read_csv("data/skittles.csv")
 head(skittles)
 
-ggplot(_____, aes(x= _______, y = ________)) +  _____
+ggplot(skittles, aes(x= color, y = number)) +  geom_col()
 
 
 # next redo that plot, but reorder the x-axis from highest to lowest in number
 
-ggplot(_____, aes(x= reorder(_______, ________), y = ________)) +  _____
+ggplot(skittles, aes(x= reorder(color, -number), y = number)) +  
+  geom_col()
 
 
 
@@ -179,11 +180,11 @@ table(catcolor$color1) # this gives us a quick summary of the totals for each co
 
 # plot a bar graph of color1 on the x-axis, and counts on the y-axis
 
-ggplot(________, aes(x=_______)) + _______
+ggplot(catcolor, aes(x=color1)) + geom_bar()
 
 # next, flip the axes, so the bars are going horizontally.
 
-ggplot(catcolor, aes(x=_______)) + _______ + ________
+ggplot(catcolor, aes(x=color1)) + geom_bar() + coord_flip()
 
 
 # reordering the order of the bars when using geom_bar() is a bit trickier....

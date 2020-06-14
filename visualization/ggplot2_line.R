@@ -24,7 +24,7 @@ ggplot(jennifer, aes(x=year, y=n) ) + geom_line() # instead use a line
 
 # Can add point and line
 ggplot(jennifer, aes(x=year, y=n) ) + 
-  geom_point() +
+  geom_point() +  
   geom_line() 
 
 
@@ -108,7 +108,7 @@ tail(covid.df)
 
 # plot a line graph of day (x-axis) against total (y-axis)
 
-ggplot(_____, aes(x= _____, y= ______)) + geom_line()
+ggplot(covid.df, aes(x= day, y= total)) + geom_line()
 
 
 # 2. Import the countycovid dataset.
@@ -121,5 +121,5 @@ tail(covid.county)
 # plot a line graph of day (x-axis) against total (y-axis), and make separate lines for each county.
 
 
-ggplot(_____, aes(x= _____, y= ______, color = _______)) + 
-  geom_line()
+ggplot(covid.county, aes(x= day, y= total, color = county)) + 
+  geom_line() 

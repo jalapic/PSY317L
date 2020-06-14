@@ -2,7 +2,7 @@
 
 library(tidyverse) 
 
-df <- read_csv("BlueJays.csv")
+df <- read_csv("data/BlueJays.csv")
 head(df)
 
 
@@ -10,8 +10,8 @@ head(df)
 ggplot(df, aes(x=Mass, y=Head) ) + geom_point()
 
 
-ggplot(df, aes(x=Mass, y=Head) ) + 
-  geom_point()
+ggplot(df, aes(x=Mass, y=Head) )  +
+  geom_point() 
 
 
 # Change the x-axis title
@@ -72,29 +72,28 @@ ggplot(df, aes(x=Mass, y=Head) ) +
 
 # 1. For the films data, plot imdb against rottentomatoes and add an x-axis title, y-axis title and main title.  You can choose what to put in the titles.
 
-films <- read_csv("films2015.csv")
-films <- films2015
+films <- read_csv("data/films.csv")
 
 ggplot(films, aes(x = imdb, y = rottentomatoes)) +
   geom_point()+
-  xlab("_____")+
-  ylab("______")+
-  ggtitle("_____")
+  xlab("IMDB Rating")+
+  ylab("Rotten Tomatoes Rating")+
+  ggtitle("Comparison of Rating Sites for Selected Films")
 
 # 2. For the films data, plot imdb against metacritic and add an x-axis title, y-axis title and main title.  You can choose what to put in the titles.
 
-films <- read_csv("films2015.csv")
-films <- films2015
+head(films)
 
-ggplot(films, aes(x = imdb, y = ________)) +
+ggplot(films, aes(x = imdb, y = metacritic)) +
   geom_point()+
-  ____("_____")+
-  ____("______")+
-  ____("_____")
+  xlab("IMDB Rating")+
+  ylab("Metacritic Rating")+
+  ggtitle("Rating Comparison for Films")
 
 
 # 3. Change the theme of the following scatterplot to the Classic theme. (There is no blank here - you have to add something).
 
 ggplot(films, aes(x=imdb, y=metacritic))+
-  geom_point()
+  geom_point() +
+  theme_classic()
 
