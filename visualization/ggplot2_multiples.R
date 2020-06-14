@@ -1,125 +1,139 @@
-## Line graph - connecting values (y-axis) over time (x-axis)
+## Small multiples - 
+
+# A good way of showing relationships across categories
 
 library(tidyverse)
 
-jennifer <- read_csv("data/jennifer.csv")
 
 
-head(jennifer)
-tail(jennifer)
+## Read in the penguins dataset
+
+penguins <- read_csv("data/penguins.csv")
+
+head(penguins)
+
+# we might be interested in how body mass is associated with flipper length
+
+ggplot(penguins, aes(x = body_mass_g,  y = flipper_length_mm)) + geom_point()
 
 
-# Let's build up a line graph
-ggplot()
+# but this mixes species and sexes...
+# we could color...
 
-ggplot(jennifer) 
+ggplot(penguins, aes(x = body_mass_g,  y = flipper_length_mm, color = species)) + geom_point()
 
-ggplot(jennifer, aes() ) 
 
-ggplot(jennifer, aes(x=year, y=n) ) 
+ggplot(penguins, aes(x = body_mass_g,  y = flipper_length_mm, color = sex)) + geom_point()
 
-ggplot(jennifer, aes(x=year, y=n) ) + geom_point() # look at data as points
 
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line() # instead use a line
+# if we make small multiples we can look at relationship across species and sex
+# facet_wrap() makes the multiples
 
-# Can add point and line
-ggplot(jennifer, aes(x=year, y=n) ) + 
+ggplot(penguins, aes(x = body_mass_g,  y = flipper_length_mm, color = sex)) + 
   geom_point() +
-  geom_line() 
+  facet_wrap(~ species)
 
-
-# Can Change Color of Line
-ggplot(jennifer, aes(x=year, y=n) ) + 
-  geom_line(color = "purple")
-
-# this doesn't color points though
-ggplot(jennifer, aes(x=year, y=n) ) + 
+# you can make the scales vary between panels...
+ggplot(penguins, aes(x = body_mass_g,  y = flipper_length_mm, color = sex)) + 
   geom_point() +
-  geom_line(color = "purple") 
-
-
-# change both colors
-ggplot(jennifer, aes(x=year, y=n) ) + 
-  geom_point(color = "violet") +
-  geom_line(color = "purple") 
+  facet_wrap(~ species, scales = "free")
 
 
 
-# Customize axis labels and title
-ggplot(jennifer, aes(x=year, y=n) ) + 
-  geom_line(color = "purple") +
-  xlab("Year") +
-  ylab("Number of Children Born") +
-  ggtitle("Popularity of Name Jennifer in USA")
 
+## Example 2 - scatterplot...
 
-# Change width of lines
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line()
+# this is a dataset of videogame ratings and sales
 
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lwd=2)
+vg <- read_csv("data/videogames.csv")
 
-ggplot(jennifer, aes(x=year, y=n) ) + 
-  geom_line(color = 'purple', lwd=2)
-
-
-# Change style of lines
-
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line()
-
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lty=1)
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lty=2)
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lty=3)
-ggplot(jennifer, aes(x=year, y=n) ) + geom_line(lty=4)
+head(vg)
 
 
 
-## Plotting multiple lines on same graph
+# let's look at the categorical variables
 
-jenlinda <- read_csv("data/jenlinda.csv")
+table(vg$platform)
 
-head(jenlinda)
-tail(jenlinda)
+table(vg$genre)
 
-ggplot(jenlinda, aes(x=year, y=n, color=name)) + geom_line()
+table(vg$rating)
 
+head(vg)
 
-ggplot(jenlinda, aes(x=year, y=n, color=name)) + 
-  geom_line()+
-  xlab("Year") +
-  ylab("Number of Children Born") +
-  ggtitle("Popularity of Names Jennifer & Linda in USA")
+# Let's plot critic score against global sales
+
+ggplot(vg, aes(x = critic, y = global_sales)) + geom_point()  # erm, there are some crazy high values
 
 
-####################----------------------------##########################
+# what are the crazy high selling games?
+
+vg %>% filter(global_sales > 20) 
+ 
+
+# logging the y-axis will help with readability...
+
+ggplot(vg, aes(x = critic, y = log(global_sales))) + geom_point()
 
 
-### Try for yourself examples....
+# but what if we wanted to look at this relationship by genre...
+# let's add transparency to the points because there are so many of them
+# and change the theme 
 
-# remove the blanks, and replace with the appropriate word.
-
-# 1. Import the texascovid dataset. This gives the cumulative number of deaths from covid19 for all of Texas (as of June 6th). The day column is the number of days since March 4th 2020.
-
-# you may get a 'warning' about the Date column - it's ok.
-
-covid.df <- read_csv("data/texascovid.csv")
-
-head(covid.df)
-tail(covid.df)
-
-# plot a line graph of day (x-axis) against total (y-axis)
-
-ggplot(_____, aes(x= _____, y= ______)) + geom_line()
+ggplot(vg, aes(x = critic, y = log(global_sales))) + 
+  geom_point(alpha=.4) +
+  theme_minimal() +
+  facet_wrap(~genre)
 
 
-# 2. Import the countycovid dataset.
-
-covid.county <- read_csv("data/countycovid.csv")
-
-head(covid.county)
-tail(covid.county)
-
-# plot a line graph of day (x-axis) against total (y-axis), and make separate lines for each county.
+ggplot(vg, aes(x = critic, y = log(global_sales), color=platform )) + 
+  geom_point(alpha=.4) +
+  theme_minimal() +
+  facet_wrap(~genre)
 
 
-ggplot(_____, aes(x= _____, y= ______, color = _______)) + 
-  geom_line()
+
+#### Example 3 - A line graph example ....
+
+
+# Let's look at life expectancy by year
+
+df <- read_csv("data/lifeexp_all.csv")
+
+head(df)
+
+
+# notice here that we use 'group' and not 'color' to make separate lines...
+# we have too many countries to have different colors !!!
+# our major aim is to look at patterns across time...
+
+ggplot(df, aes(x = year, y = lifeExp, group = country)) + geom_line()  # yuck !
+
+# we could tidy up a bit...
+# make the lines a light color and a bit transparent
+
+ggplot(df, aes(x = year, y = lifeExp, group = country)) + 
+  geom_line(color="cornflowerblue", alpha=0.4) +
+  theme_minimal()
+
+# better.... but it's still so hard to see what's going on.
+
+# let's make multiples by continent
+
+head(df)
+
+
+ggplot(df, aes(x = year, y = lifeExp, group = country)) + 
+  geom_line(color="cornflowerblue", alpha=0.4) +
+  theme_minimal() +
+  facet_wrap(~continent)
+
+
+
+# sometimes making each panel a different color can help...
+
+ggplot(df, aes(x = year, y = lifeExp, group = country, color=continent)) + 
+  geom_line() +
+  theme_minimal() +
+  facet_wrap(~continent)
+

@@ -15,3 +15,10 @@ cats <- cats %>% filter(color1 != "Breed Specific") %>% filter(color1!="lynx")
 
 ggplot(cats, aes(x=color1)) + geom_bar() + coord_flip()
 write.csv(cats, "data/catcolor.csv",row.names = F)
+
+
+###:
+
+df=read_csv("https://raw.githubusercontent.com/allisonhorst/penguins/master/data/penguins_size.csv")
+head(df)
+write.csv(df, "data/penguins.csv", row.names = F)

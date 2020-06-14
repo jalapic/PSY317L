@@ -5,22 +5,8 @@
 ## Load libraries and data
 
 library(tidyverse) 
-df <- read_csv("films2015.csv")
+df <- read_csv("data/films.csv")
 
-
-
-## First I shall briefly explain what a histogram is.
-# this is the most basic way of making a histogram in R
-hist(df$imdb)
-hist(df$imdb, breaks=20) 
-hist(df$imdb, breaks=20, col="red") # quick but not pretty
-hist(df$imdb, breaks=20, col="red", main="Histogram of IMDB Ratings")
-hist(df$imdb, breaks=20, col="red", main="Histogram of IMDB Ratings", xlab="Rating")
-
-
-
-
-## But we should learn how to use 'ggplot2' to make nicer looking charts...
 
 
 
@@ -31,227 +17,155 @@ ggplot()  #blank canvas
 ggplot(df)   #just adding the datset to the blank canvas, but nothing plotted yet
 
 
-ggplot(df, aes(imdb)) + geom_histogram()  # telling it that we want to plot imdb scores as a histogram
+ggplot(df, aes(x=imdb)) + geom_histogram()  # telling it that we want to plot imdb scores as a histogram
 
 
-ggplot(df, aes(imdb)) + geom_histogram(color='white') #make border around bars white
+ggplot(df, aes(x=imdb)) + geom_histogram(color='white') #make border around bars white
 
-ggplot(df, aes(imdb)) + geom_histogram(color='white', fill="blue") #make bars blue
-
-
-
-ggplot(df, aes(imdb)) + geom_histogram(binwidth = 0.2) # tell it to make binwidth 0.2
-
-ggplot(df, aes(imdb)) + geom_histogram(binwidth = 0.2, color="white") # tell it to make binwidth 0.2 and change color
-
-ggplot(df, aes(imdb)) + geom_histogram(binwidth = 0.2, color="white", fill="red") # and fill with red
+ggplot(df, aes(x=imdb)) + geom_histogram(color='white', fill="dodgerblue") #make bars dodgerblue
 
 
-# change default theme using theme()
-# note how you can go on successive lines-  but make sure a + is at the end of the row
+
+# you can also control the bin width of histograms..
 
 ggplot(df, aes(imdb)) + 
-  geom_histogram(binwidth = 0.2, color="white", fill="red") +
-  theme_bw()
+  geom_histogram(binwidth = 0.2, color="white", fill="dodgerblue") # has a bin width of 0.2 rating points
 
-# keep adding things, e.g. title...  
-ggplot(df, aes(imdb)) + 
-  geom_histogram(binwidth = 0.2, color="white", fill="red") +
-  theme_bw() +
-  ggtitle("Histogram of IMDB Ratings")
 
-# x and y axis labels
+
+# further you can control where the boundaries of each bin lie on the x-axis....
+
 ggplot(df, aes(imdb)) + 
-  geom_histogram(binwidth = 0.2, color="white", fill="red") +
-  theme_bw() +
+  geom_histogram(binwidth = 0.2, color="white", fill="dodgerblue",boundary=4) # makes boundary line up 
+
+# just be careful with using the boundaries that it does not crop your histogram incorrectly...
+
+
+
+
+## Customizing a little...
+
+ggplot(df, aes(imdb)) + 
+  geom_histogram(binwidth = 0.2, color="white", fill="dodgerblue",boundary=4) +
+  theme_classic() +
   ggtitle("Histogram of IMDB Ratings") +
   xlab("Rating") +
   ylab("Frequency")
 
 
 
+### Instead of Viewing as a histogram, you can also show the data as a density curve...
 
-### Some Fill in the gap examples
+ggplot(df, aes(imdb)) +  geom_density(color = "navy", fill = "dodgerblue") 
+  
 
-ggplot(battingavg, aes(____)) + geom_histogram() # Make a histogram of the batting average column (avg) in the battingavg dataset
+# alpha gives it a bit of transparency
+ggplot(df, aes(imdb)) +  geom_density(color = "navy", fill = "dodgerblue", alpha=.4)
 
 
-ggplot(battingavg, aes(____)) + geom_histogram() # Make a histogram of the number of hits (H) in the battingavg dataset
 
+### Second Example
 
-ggplot(battingavg, aes(____)) + geom_histogram(________) 
-# Make a histogram of the batting average column (avg) in the battingavg dataset - make the bindwidth 0.01
+# load in the data "batting.csv".
+# this is the career batting averages of all MLB players with at least 200 at bats
 
-ggplot(________, aes(____)) + ___(_________) 
-# Make a histogram of the batting average column (avg) in the battingavg dataset - make the bindwidth 0.01, make the outline color white
+bats <- read_csv("data/batting.csv")
 
+head(bats)
+tail(bats)
 
 
-### Some write from scratch example
+ggplot(bats, aes(x=avg)) + geom_histogram()
 
-# Make histograms of the temperature distribution in Miami and San Francisco - compare and contrast.
-# use the 'miami' and 'sanfran' datasets for this.
 
+ggplot(bats, aes(x=avg)) + 
+  geom_histogram(binwidth = .005, color='darkgreen',fill='lightgreen')
 
 
-library(tidyverse)
+ggplot(bats, aes(x=avg)) + geom_density(alpha=0.7, fill='mistyrose')
 
 
+# you can actually overlay these...
 
+ggplot(bats, aes(avg))  + 
+  geom_histogram(aes(y = ..density..), color = "black", fill = "white") + 
+  geom_density(alpha = 0.7, fill = "mistyrose") + 
+  theme_minimal()
 
-## Data
-library(babynames)
-head(babynames)
-tail(babynames)
 
-girls <- subset(babynames, sex=="F")
-girls
 
-boys <- subset(babynames, sex=="M")
-boys
 
-since1950 <- subset(babynames, year>=1950)
-since1950
 
+## Add a line over a histogram
 
-## Number of unique names per year.
+ggplot(bats, aes(x=avg)) + 
+  geom_histogram(binwidth = .005, color='darkgreen',fill='lightgreen')
 
-ggplot(boys)
+ggplot(bats, aes(x=avg)) + 
+  geom_histogram(binwidth = .005, color='darkgreen',fill='lightgreen') +
+  geom_vline(aes(xintercept=0.3), color="black", lty=2, size=1)
 
-ggplot(boys, aes(x=year))
 
-ggplot(boys, aes(x=year)) + geom_bar()
 
-ggplot(girls, aes(x=year)) + geom_bar()
 
-ggplot(babynames, aes(x=year)) + geom_bar() + facet_wrap(~sex)
+### Side by side Histograms - Comparing Distributions
 
-ggplot(babynames, aes(x=year)) + geom_bar(width=.7) + facet_wrap(~sex)
 
+life <- read_csv("data/lifeexp.csv")
 
+head(life)
+tail(life)
 
-#girls boys on same chart
-ggplot(since1950, aes(x=year, fill=sex)) + geom_bar()
 
-ggplot(since1950, aes(x=year, fill=sex)) + geom_bar(position='dodge')
+# let's plot a histogram of life Expectancy across all countries
 
+ggplot(life, aes(x=lifeExp)) + geom_histogram(color='white', fill='lightseagreen') #warning is ok
 
-## If counts are pre-known use stat= identity
 
-patricia <- babynames %>% filter(name=="Patricia")
 
-patricia
-
-patricia %>% arrange(-n)
-
-ggplot(patricia, aes(x=year, y=n)) + geom_bar(stat='identity')
-
-ggplot(patricia, aes(x=year, y=n)) + geom_bar(stat='identity', color='black', lwd=.5, fill='gray33',width=.9)
-
-
-
-
-
-
-### Histograms ----
-
-library(Lahman)
-
-head(Batting)
-
-Batting_sum <- Batting %>% 
-  group_by(playerID) %>% 
-  summarise(totalH = sum(H),
-            totalAB = sum(AB),
-            avg = totalH/totalAB
-  )
-
-Batting_sum <- Batting_sum %>% filter(totalAB>200)
-
-
-hist(Batting_sum$avg) #quick look using base-r
-
-
-ggplot(Batting_sum, aes(x=avg)) + geom_histogram()
-
-ggplot(Batting_sum, aes(x=avg)) + geom_histogram(color='darkgreen',fill='lightgreen')
-
-ggplot(Batting_sum, aes(x=avg)) + geom_histogram(bins = 150,color='darkgreen',fill='lightgreen')
-
-ggplot(Batting_sum, aes(x=avg)) + geom_histogram(binwidth = .005, color='darkgreen',fill='lightgreen')
-
-ggplot(Batting_sum, aes(x=avg)) + geom_density()
-
-ggplot(Batting_sum, aes(x=avg)) + geom_density(fill='mistyrose')
-
-# default for histogram is count, but can make it density like this
-ggplot(Batting_sum, aes(x=avg)) + geom_histogram(aes(y=..density..),color='darkgreen',fill='lightgreen')
-
-
-## Add a line
-ggplot(Batting_sum, aes(x=avg)) + 
-  geom_histogram(bins = 150,color='darkgreen',fill='lightgreen') +
-  geom_vline(aes(xintercept=0.3), color="black", linetype="dashed", size=1)
-
-
-
-
-### Side by side Histograms----
-
-# e.g. players prior to 1920 vs players after 1990
-
-Batting_early <- Batting %>%
-  filter(yearID<=1920) %>%
-  group_by(playerID) %>% 
-  summarise(totalH = sum(H),
-            totalAB = sum(AB),
-            avg = totalH/totalAB
-  ) %>%
-  mutate(period='early')
-
-
-Batting_late <- Batting %>%
-  filter(yearID>=1990) %>%
-  group_by(playerID) %>% 
-  summarise(totalH = sum(H),
-            totalAB = sum(AB),
-            avg = totalH/totalAB
-  ) %>%
-  mutate(period='late')
-
-
-Batting_early
-Batting_late
-
-Batting_all <- rbind(Batting_early, Batting_late)
-
-Batting_all <- Batting_all %>% filter(totalAB>100)
-
+# But we've combined data from the two years - we should separate histograms for each year
 
 # Overlaid histograms
-ggplot(Batting_all, aes(x=avg, fill=period)) +  geom_histogram(position="identity")
 
-ggplot(Batting_all, aes(x=avg, fill=period)) +  geom_histogram(position="identity", alpha=.7, binwidth=.005)
+ggplot(life, aes(x=lifeExp, fill=year)) +  
+  geom_histogram(position="identity") #horrible
 
-ggplot(Batting_all, aes(x=avg, fill=period)) +  geom_histogram(position="identity", alpha=.7, binwidth=.005) + facet_wrap(~period)
-
-ggplot(Batting_all, aes(x=avg, fill=period)) +  geom_density(alpha=.7, binwidth=.005) 
-
-# Interleaved histograms
-ggplot(Batting_all, aes(x=avg, fill=period)) +  geom_histogram(position="dodge")
+# add a defined binwith and add an alpha level
+ggplot(life, aes(x=lifeExp, fill=year)) +  
+   geom_histogram(position="identity", alpha=.5, binwidth=2)
 
 
+# add defined colors
+# and make border of bars black
+ggplot(life, aes(x=lifeExp, fill=year)) +  
+  geom_histogram(position="identity", alpha=.5, binwidth=2) +
+   scale_fill_manual(values = c("#999999", "#E69F00"))
+
+
+#make borders of bars black as well
+ggplot(life, aes(x=lifeExp, fill=year)) +  
+  geom_histogram(position="identity", alpha=.5, binwidth=2, color='black') +
+  scale_fill_manual(values = c("#999999", "#E69F00"))
 
 
 
+### you can also compare density plots - usually simpler to compare
+  
+ggplot(life, aes(x=lifeExp, fill=year)) +  
+  geom_density(aes(fill = year), alpha = 0.4) 
 
+# adding customized colors
+ggplot(life, aes(x=lifeExp, fill=year)) +  
+  geom_density(aes(fill = year), alpha = 0.4) +
+  scale_fill_manual(values = c("#999999", "#E69F00"))
+  
+# changing theme
+ggplot(life, aes(x=lifeExp, fill=year)) +  
+  geom_density(aes(fill = year), alpha = 0.4) +
+  scale_fill_manual(values = c("#999999", "#E69F00"))  + 
+  theme_classic()
 
-### Extra:   Back to Back histograms  (see advanced tutorial)
-
-# e.g. popularity of unisex names like Skylar over decades
-# e.g. population pyramids
-
-
+  
 
 
 
@@ -262,5 +176,41 @@ ggplot(Batting_all, aes(x=avg, fill=period)) +  geom_histogram(position="dodge")
 ### Try for yourself examples....
 
 # remove the blanks, and replace with the appropriate word.
+
+
+# Make a histogram of the number of hits (totalH) in the bats dataset
+head(bats)
+ggplot(bats, aes(____)) + geom_histogram()
+
+
+# Make a histogram of the batting average column (avg) in the bats dataset - make the bindwidth 0.01
+ggplot(bats, aes(____)) + geom_histogram(________) 
+
+# Make a histogram of the batting average column (avg) in the bats dataset - 
+# make the bindwidth 0.01, make the outline color white
+ggplot(________, aes(____)) + ___(_________) 
+
+
+
+# Load in the miami.csv dataset
+# this shows the average daily temperature for miami in 2017
+
+miami <- read_csv("data/miami.csv")
+head(miami)
+
+# make a histogram of the avgtemp column, make the fill color a light blue
+ggplot(miami, aes(_____)) + ____________
+
+# now change the histogram to a density plot and fill with navy color and set the alpha at 0.2
+ggplot(miami, aes(_____)) + ____________
+
+
+
+
+# overlay the density plot over the histogram for the last two graphs
+ggplot(miami, aes(avgtemp))  + 
+  geom_histogram(aes(y = _________), color = "black", fill = "cyan") + 
+  geom_density(alpha = 0.2, fill = "navy") + 
+  theme_minimal()
 
 
