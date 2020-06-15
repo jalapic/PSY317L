@@ -137,3 +137,13 @@ ggplot(df, aes(x = year, y = lifeExp, group = country, color=continent)) +
   theme_minimal() +
   facet_wrap(~continent)
 
+
+# adding some titles
+
+ggplot(df, aes(x = year, y = lifeExp, group = country, color=continent)) + 
+  geom_line() +
+  theme_minimal() +
+  facet_wrap(~continent) +
+  xlab("Year") +
+  ylab("Life Expectancy")
+

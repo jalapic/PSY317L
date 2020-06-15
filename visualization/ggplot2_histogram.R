@@ -95,6 +95,15 @@ ggplot(bats, aes(avg))  +
 
 
 
+ggplot(bats, aes(avg))  + 
+  geom_histogram(aes(y = ..density..), color = "black", fill = "white") + 
+  geom_density(alpha = 0.7, fill = "mistyrose") + 
+  theme_minimal() +
+  xlab("Batting Average") +
+  ylab("Density") +
+  ggtitle("MLB Batting Averages by Player - all time")
+
+
 
 ## Add a line over a histogram
 
