@@ -1,23 +1,152 @@
 ### Descriptives for Groups...
 
 
+### Often in a dataset you have groups
+
+# you might want to get means/standard deviations for each group
+
+
+library(tidyverse)
+
+# Read in the Data
+wheels <- read_csv("data/wheels1.csv")
+
+head(wheels)  # notice that this has a group column - strain
+
+wheels$strain
+
+table(wheels$strain)
 
 
 
-## do it by group
-#3. Make a boxplot of the driveavg column.
-#3. Make a boxplot of the driveavg column.
-
-psych::describeBy(df, group="strain")
+# Getting overall summaries do not work.
+# they just summarize over the whole column, not by groups.
 
 
-## Let's just focus on the swiss mice
-swiss <- subset(df, strain=="Swiss")
-swiss
-swiss[,2:5]
+summary(wheels) 
+
+library(psych)
+
+describe(wheels)
+
+
+# this just gives the overall summary of data in each column, regardless of group
+
+wheels$day1 #e.g. some of these numbers come from different strains.
 
 
 
-# Load in the pga dataset
+
+
+### Summary stats by Group ---
+
+
+#describeBy comes from 'psych' package
+
+describeBy(wheels, group="strain")
+
+# this is very quick and easy, but a bit annoying to look at.
+# it also ignores missing data which is helpful
+
+
+
+#### We can also write some custom code using 'dplyr'
+
+head(wheels)
+
+
+wheels %>%
+  group_by(strain) %>%
+  summarise(mean1 = mean(day1))
+
+
+
+
+# as.data.frame just helps us see decimal places
+wheels %>%
+  group_by(strain) %>%
+  summarise(mean1 = mean(day1)) %>%
+  as.data.frame()
+
+
+
+# if you had missing data, you'd do it like this
+wheels %>%
+  group_by(strain) %>%
+  summarise(mean4 = mean(day4, na.rm=T)) %>%
+  as.data.frame()
+
+
+# you can do several summaries at once:
+wheels %>%
+  group_by(strain) %>%
+  summarise(mean1 = mean(day1),
+            sd1 = sd(day1),
+            mean2 = mean(day2),
+            sd2 = sd(day2)
+            ) %>%
+  as.data.frame()
+
+
+
+
+### Or you can tell it to just do all numeric columns, e.g.
+
+wheels %>%
+  group_by(strain) %>%
+  summarise_if(is.numeric, mean, na.rm = TRUE) %>%
+  as.data.frame()
+
+
+wheels %>%
+  group_by(strain) %>%
+  summarise_if(is.numeric, sd, na.rm = TRUE) %>%
+  as.data.frame()
+
+
+
+################-------------------------#########################
+
+
+### Try for yourself examples...
+
+#### Fill in the blanks ....
+
+
+# Read in the bmi data
+bmi <- read_csv("data/bmi.csv")
+
+bmi
+
+# 1. Use 'desribeBy' to get summary descriptives for the bmi data according to the grouping variable 'educ'.
+
+describeBy(______, group=________)
+
+
+# 2. Use 'group_by" and "summarise_if" to calculate the means of all numerical columns in the bmi dataset.
+
+_____ %>%
+  group_by(_____) %>%
+  summarise_if(is.numeric, ___, na.rm = TRUE) %>%
+  as.data.frame()
+
+
+
+# 3.  Load in the pga dataset
 # this contains data on golf stats of PGA players 2004-2015
 
+pga <- read_csv("data/pga.csv")
+
+head(pga)
+
+# Use 'group_by' and 'summarise' to calculate the mean driving average (driveavg) and the standard deviation of driving average for each year (year).
+
+
+_____ %>%
+  group_by(_____) %>%
+  summarise(mx = mean(_____),
+            sdx = sd(_____)
+            ) %>%
+  as.data.frame()
+
+  
