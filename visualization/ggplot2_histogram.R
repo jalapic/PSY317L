@@ -7,7 +7,7 @@
 library(tidyverse) 
 df <- read_csv("data/films.csv")
 
-
+head(df)
 
 
 ## Making a ggplot2 histogram
@@ -28,14 +28,14 @@ ggplot(df, aes(x=imdb)) + geom_histogram(color='white', fill="dodgerblue") #make
 
 # you can also control the bin width of histograms..
 
-ggplot(df, aes(imdb)) + 
+ggplot(df, aes(x = imdb)) + 
   geom_histogram(binwidth = 0.2, color="white", fill="dodgerblue") # has a bin width of 0.2 rating points
 
 
 
 # further you can control where the boundaries of each bin lie on the x-axis....
 
-ggplot(df, aes(imdb)) + 
+ggplot(df, aes(x = imdb)) + 
   geom_histogram(binwidth = 0.2, color="white", fill="dodgerblue",boundary=4) # makes boundary line up 
 
 # just be careful with using the boundaries that it does not crop your histogram incorrectly...
@@ -45,7 +45,7 @@ ggplot(df, aes(imdb)) +
 
 ## Customizing a little...
 
-ggplot(df, aes(imdb)) + 
+ggplot(df, aes(x = imdb)) + 
   geom_histogram(binwidth = 0.2, color="white", fill="dodgerblue",boundary=4) +
   theme_classic() +
   ggtitle("Histogram of IMDB Ratings") +
@@ -56,11 +56,12 @@ ggplot(df, aes(imdb)) +
 
 ### Instead of Viewing as a histogram, you can also show the data as a density curve...
 
-ggplot(df, aes(imdb)) +  geom_density(color = "navy", fill = "dodgerblue") 
+ggplot(df, aes(x = imdb)) +  geom_density(color = "navy", fill = "dodgerblue") 
   
 
 # alpha gives it a bit of transparency
-ggplot(df, aes(imdb)) +  geom_density(color = "navy", fill = "dodgerblue", alpha=.4)
+ggplot(df, aes(x = imdb)) +  
+  geom_density(color = "navy", fill = "dodgerblue", alpha=.4)
 
 
 
@@ -87,7 +88,7 @@ ggplot(bats, aes(x=avg)) + geom_density(alpha=0.7, fill='mistyrose')
 
 # you can actually overlay these...
 
-ggplot(bats, aes(avg))  + 
+ggplot(bats, aes(x = avg))  + 
   geom_histogram(aes(y = ..density..), color = "black", fill = "white") + 
   geom_density(alpha = 0.7, fill = "mistyrose") + 
   theme_minimal()
@@ -95,7 +96,7 @@ ggplot(bats, aes(avg))  +
 
 
 
-ggplot(bats, aes(avg))  + 
+ggplot(bats, aes(x=avg))  + 
   geom_histogram(aes(y = ..density..), color = "black", fill = "white") + 
   geom_density(alpha = 0.7, fill = "mistyrose") + 
   theme_minimal() +
@@ -112,7 +113,7 @@ ggplot(bats, aes(x=avg)) +
 
 ggplot(bats, aes(x=avg)) + 
   geom_histogram(binwidth = .005, color='darkgreen',fill='lightgreen') +
-  geom_vline(aes(xintercept=0.3), color="black", lty=2, size=1)
+  geom_vline(xintercept=0.3, color="black", lty=2, size=1)
 
 
 
@@ -128,7 +129,8 @@ tail(life)
 
 # let's plot a histogram of life Expectancy across all countries
 
-ggplot(life, aes(x=lifeExp)) + geom_histogram(color='white', fill='lightseagreen') #warning is ok
+ggplot(life, aes(x=lifeExp)) + 
+  geom_histogram(color='white', fill='lightseagreen') #warning is ok
 
 
 
@@ -189,15 +191,15 @@ ggplot(life, aes(x=lifeExp, fill=year)) +
 
 # Make a histogram of the number of hits (totalH) in the bats dataset
 head(bats)
-ggplot(bats, aes(____)) + geom_histogram()
+ggplot(bats, aes(x = totalH)) + geom_histogram()
 
 
 # Make a histogram of the batting average column (avg) in the bats dataset - make the bindwidth 0.01
-ggplot(bats, aes(____)) + geom_histogram(________) 
+ggplot(bats, aes(x = avg)) + geom_histogram(binwidth = 0.01) 
 
 # Make a histogram of the batting average column (avg) in the bats dataset - 
 # make the bindwidth 0.01, make the outline color white
-ggplot(________, aes(____)) + ___(_________) 
+ggplot(bats, aes(x = avg)) + geom_histogram(binwidth = 0.01, color="white") 
 
 
 
@@ -208,17 +210,17 @@ miami <- read_csv("data/miami.csv")
 head(miami)
 
 # make a histogram of the avgtemp column, make the fill color a light blue
-ggplot(miami, aes(_____)) + ____________
+ggplot(miami, aes(x = avgtemp)) + geom_histogram(fill="cyan")
 
 # now change the histogram to a density plot and fill with navy color and set the alpha at 0.2
-ggplot(miami, aes(_____)) + ____________
+ggplot(miami, aes(x = avgtemp)) + geom_density(alpha=0.2, fill="navy")
 
 
 
 
 # overlay the density plot over the histogram for the last two graphs
-ggplot(miami, aes(avgtemp))  + 
-  geom_histogram(aes(y = _________), color = "black", fill = "cyan") + 
+ggplot(miami, aes(x = avgtemp))  + 
+  geom_histogram(aes(y = ..density..), color = "black", fill = "cyan") + 
   geom_density(alpha = 0.2, fill = "navy") + 
   theme_minimal()
 

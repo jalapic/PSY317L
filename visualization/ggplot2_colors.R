@@ -96,9 +96,9 @@ ggplot(cheese, aes(x=sat_fat, y=chol) ) + geom_point(color = ______)
 # 2. For the penguins dataset, plot culmen_length_mm against culmen_depth_mm and color points by species 
 # Pick your own colors
 
-ggplot(______, aes(x = ______, y = __________, color = ____________) ) +
+ggplot(penguins, aes(x = culmen_length_mm, y = culmen_depth_mm, color = species) ) +
   geom_point() + 
-  scale_color_manual(values = c(_________,  ___________))
+  scale_color_manual(values = c(____,  ____, ______))
 
 
 

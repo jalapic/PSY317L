@@ -68,7 +68,7 @@ ggplot(vg, aes(x = critic, y = global_sales)) + geom_point()  # erm, there are s
 
 # what are the crazy high selling games?
 
-vg %>% filter(global_sales > 20) 
+vg %>% filter(global_sales > 20) %>% as.data.frame()
  
 
 # logging the y-axis will help with readability...

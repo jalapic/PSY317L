@@ -23,7 +23,7 @@ head(jayM)
 # e.g. Body Mass against Head Size
 
 ggplot(jayM, aes(x=Mass, y=Head)) + 
-  geom_point(shape = 21, colour = "navy", fill = "dodgerblue")
+  geom_point(shape = 21, color = "navy", fill = "dodgerblue")
 
 
 # it looks like there is an association.
@@ -129,7 +129,7 @@ cor.test(jayM$Mass, jayM$BillDepth, alternative = "greater") # p>0.05
 
 gs <- read_csv("data/gamescore.csv")
 
-head(df)
+head(gs)
 
 nrow(gs)  # 50 subjects
  
@@ -159,7 +159,7 @@ ggplot(gs, aes(x = hours, y = tiredness)) +
 
 # 1. For the jayM data, plot Head against Skull
 
-ggplot(df, aes(x = ______,  y= ______)) + geom_point()
+ggplot(jayM, aes(x = ______,  y= ______)) + geom_point()
 
 
 # 2. For the jayM data, check if the variable 'Skull' is approximately normal using a Shapiro test.
@@ -172,7 +172,7 @@ ______(jayM$Skull)
 # if there is a meaningful association between Mass and Skull
 # What do the 'r' and 'p-values' suggest?
 
-______(jay$Mass, _______)
+______(jayM$Mass, _______)
 
 
 # 4. Read in the 'gamescore.csv' data and make the plot
@@ -189,7 +189,7 @@ ggplot(gs, aes(x = hours, y = score)) + geom_point()
 # how do you interpret these results?
 
 cor.test(gs$hours, __________)  # 2-tailed
-cor.test(gs$hours, __________, method = ______________) #1-tailed
+cor.test(gs$hours, __________, alternative = ______________) #1-tailed
 
 
 
