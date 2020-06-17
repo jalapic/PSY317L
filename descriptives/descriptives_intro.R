@@ -138,8 +138,8 @@ describe(xt)
 
 #1. Calculate the IQR for time3 of the xt data
 
-#2. Calculate the standard deviation for kcal from the cheese data
 
+#2. Calculate the standard deviation for kcal from the cheese data
 
 
 
@@ -154,7 +154,7 @@ tail(bmi)
 
 #3. Make a boxplot of the bmi column.
 
-ggplot(_____, aes(y=_____)) + 
+ggplot(______, aes(y=______)) + 
   geom_boxplot(color='black', fill='lightseagreen') + 
   scale_x_discrete(breaks = NULL)
 

@@ -86,7 +86,7 @@ sum(dif2)                          # the sum of the squared diffrences
 asd <- sum(dif2) / (length(x) - 1) # the average squared difference using n-1
 sqrt(asd)                          # the sample standard deviation
 
-
+sd(x)
 
 
 ## We could have done this in one line..

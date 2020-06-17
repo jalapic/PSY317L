@@ -26,6 +26,8 @@ mean(x)
 
 # here we will read in data...
 
+library(tidyverse)
+
 skit <- read_csv("data/skittles.csv")
 
 skit

@@ -13,21 +13,22 @@ library(ppcor) # for partial correlation functions
 
 ### loading data ----
 
-
-
-## Partial Correlation----
-
-
 gs <- read_csv("data/gamescore.csv")
+
 
 nrow(gs)
 
 head(gs)
 
-# it's possible that 'score' is affected by 'hours' and 'tiredness'.
+
+## Partial Correlation----
+
+
+
+# it's possible that 'score' is affected by 'hours' and 'altertness'.
 
 # but we really care about the relationship between 'hours' and 'score'
-# controlling for 'tiredness'.
+# controlling for 'altertness'.
 
 
 ggplot(gs, aes(x=hours, y=score)) + 
@@ -53,18 +54,18 @@ p1
 cor(gs$hours, gs$score)  # r = 0.24
 
 
-p2 <- ggplot(gs, aes(x=tiredness, y=score)) + 
+p2 <- ggplot(gs, aes(x=alertness, y=score)) + 
   geom_point() +
   stat_smooth(method="lm",se=F)
 p2
-cor(gs$tiredness, gs$score) # r = -0.21
+cor(gs$alertness, gs$score) # r = -0.21
 
 
-p3 <- ggplot(gs, aes(x=hours, y=tiredness)) + 
+p3 <- ggplot(gs, aes(x=hours, y=alertness)) + 
   geom_point() +
   stat_smooth(method="lm",se=F)
 p3
-cor(gs$hours, gs$tiredness) # r = -0.29
+cor(gs$hours, gs$alertness) # r = -0.29
 
 
 # There's a way of plotting all next to each other...
@@ -81,9 +82,9 @@ grid.arrange(p1,p2,p3,nrow=1) # need library(gridExtra) for this
 
 # we use 'pcor.test' from the ppcor package.
 
-pcor.test(x=gs$hours, y=gs$score, z=gs$tiredness)
+pcor.test(x=gs$hours, y=gs$score, z=gs$alertness)
 
-
+cor.test(x=gs$hours, y=gs$score, z=gs$alertness)
 
 
 
@@ -143,6 +144,7 @@ grid.arrange(p1,p2,p3,nrow=1) # need library(gridExtra) for this
 # because this is non-parametric, we set the method to spearman
 
 pcor.test(x=exams$revise, y=exams$exam, z=exams$anxiety, method = "spearman")
+ cor.test(x=exams$revise, y=exams$exam, z=exams$anxiety, method = "spearman")
 
 # appears that the relationship between revision and exam score becomes much less
 # meaningful when you account for anxiety.

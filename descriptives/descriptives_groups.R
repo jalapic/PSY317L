@@ -94,7 +94,7 @@ wheels %>%
 
 wheels %>%
   group_by(strain) %>%
-  summarise_if(is.numeric, mean, na.rm = TRUE) %>%
+  summarise_if(is.numeric, mean, na.rm = T) %>%
   as.data.frame()
 
 
@@ -118,16 +118,16 @@ bmi <- read_csv("data/bmi.csv")
 
 bmi
 
-# 1. Use 'desribeBy' to get summary descriptives for the bmi data according to the grouping variable 'educ'.
+# 1. Use 'describeBy' to get summary descriptives for the bmi data according to the grouping variable 'educ'.
 
-describeBy(______, group=________)
+describeBy(bmi, group="educ")
 
 
 # 2. Use 'group_by" and "summarise_if" to calculate the means of all numerical columns in the bmi dataset.
 
-_____ %>%
-  group_by(_____) %>%
-  summarise_if(is.numeric, ___, na.rm = TRUE) %>%
+bmi %>%
+  group_by(educ) %>%
+  summarise_if(is.numeric, mean, na.rm = TRUE) %>%
   as.data.frame()
 
 
@@ -142,10 +142,10 @@ head(pga)
 # Use 'group_by' and 'summarise' to calculate the mean driving average (driveavg) and the standard deviation of driving average for each year (year).
 
 
-_____ %>%
-  group_by(_____) %>%
-  summarise(mx = mean(_____),
-            sdx = sd(_____)
+pga %>%
+  group_by(year) %>%
+  summarise(mx = mean(driveavg, na.rm=T),
+            sdx = sd(driveavg, na.rm=T)
             ) %>%
   as.data.frame()
 

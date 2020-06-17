@@ -54,13 +54,13 @@ ggplot(df, aes(x = time, y = shuffle1)) +
 cor.test(df$time, df$shuffle1) # now relationship is a bit negative
 
 cor(df$time, df$score) # original is r = 0.56
-cor(df$time, df$shuffle1) # shuffle 1 is r = -0.32
+cor(df$time, df$shuffle1) # shuffle 1 is r = -0.12
 
 # we can do this many times
-cor(df$time, sample(df$score)) # r = 0.16
-cor(df$time, sample(df$score)) # r = -0.12
 cor(df$time, sample(df$score)) # r = 0.35
 cor(df$time, sample(df$score)) # r = 0.04
+cor(df$time, sample(df$score)) # r = -0.06
+cor(df$time, sample(df$score)) # r = 0.15
 
 # etc etc
 

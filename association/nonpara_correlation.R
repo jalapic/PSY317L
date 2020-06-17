@@ -97,7 +97,7 @@ cor(test$drank, test$testosterone, method = "spearman") # rho = -0.91
 
 cor.test(test$drank, test$testosterone, method = "spearman") # 2- tailed
 
-cor.test(test$drank, test$testosterone, method = "spearman") # 1- tailed
+cor.test(test$drank, test$testosterone, method = "spearman", alternative = "less") # 1- tailed
 
 ggplot(test, aes(x = drank, y = testosterone)) + 
   geom_point() +
