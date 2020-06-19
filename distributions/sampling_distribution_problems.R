@@ -1,2 +1,2 @@
-### Demonstrating Mean in R.
+### Some sampling distribution problems.
 
