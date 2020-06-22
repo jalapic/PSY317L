@@ -11,7 +11,7 @@ library(moments)# we use two functions from this package to measure skewness and
 # kurtosis close to 3
 
 
-## This following line just creates a 100,000 data points
+## This following line just creates 100,000 data points
 # that have a mean of 100 and sd of 5 and 
 # come from a normal distribution
 

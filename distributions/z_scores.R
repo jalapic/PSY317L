@@ -1,7 +1,5 @@
 ## How to calculate z-scores in R.
 
-# (show empirical distribution and z-table)
-
 
 # z =  (x - mean(x)) / sd(x)
 

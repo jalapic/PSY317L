@@ -2,7 +2,9 @@
 
 source("descriptives/population_sd.R") # to get the populationSD function
 
-# start with pop vs sample SD formulas.
+# Reminder: population vs sample SD formulas.
+# Population:  Divide by N
+# Sample: Divide by n-1
 
 
 # the sample SD is an estimate of the population SD
