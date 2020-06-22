@@ -15,13 +15,15 @@ library(moments)# we use two functions from this package to measure skewness and
 # that have a mean of 100 and sd of 5 and 
 # come from a normal distribution
 
+set.seed(1)
+
 x <- rnorm(n = 100000, mean = 100, sd = 5.0)
 
 x
 
-mean(x)
+mean(x) #99.99
 
-sd(x)
+sd(x) #5.02
 
 
 # skewness and kurtosis
@@ -39,6 +41,10 @@ kurtosis(x)  # should be very close to 3
 
 x1 <- rnorm(n = 10, mean = 100, sd = 5.0)
 x1
+
+mean(x1)
+sd(x1)
+
 skewness(x1)
 kurtosis(x1)
 

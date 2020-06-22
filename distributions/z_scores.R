@@ -15,6 +15,8 @@ library(tidyverse)
 
 pineapple <- c(985, 1005, 1075, 977, 991, 1004, 1010, 1001, 952, 1035)
 
+pineapple
+
 mean(pineapple)
 
 sd(pineapple)
@@ -133,6 +135,7 @@ ggplot(df, aes(x = z)) +
 
 # We can directly calculate what proportion is to the left of that black line:
 
+pnorm(-1.814)
 pnorm(zscore) #0.035  - there are 3.5% of pineapples smaller than our observed value.
 
 
@@ -159,8 +162,8 @@ pnorm(1.81)
 
 # convert to z scores:
 
-(990 - 1003.5)  / 35
-(1010 - 1003.5)  / 35
+(990 - 1003.5)  / 35   #-.39
+(1010 - 1003.5)  / 35  #0.19
 
 z1 <- (990 - 1003.5)  / 35
 z2 <- (1010 - 1003.5)  / 35

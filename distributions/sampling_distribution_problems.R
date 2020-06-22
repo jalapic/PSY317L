@@ -2,7 +2,9 @@
 
 # The weight of chicken eggs is normally distributed with mean 60g and standard deviation of 3g.
 
-# What is the probability of getting a batch of a dozen eggs that have a mean of 58g ?
+# What is the probability of getting a batch of a dozen eggs that have a mean of less than 58g ?
+
+set.seed(1) # so you get the same values as my script
 
 
 ### First, I'll make some plots of the 'population' and 'sampling distribution'
@@ -24,6 +26,7 @@ for(i in 1:10000){
 }
 
 res <- unlist(results)
+
 ggplot(data.frame(res), aes(x=res)) +
   geom_histogram(color="black", fill='lightseagreen', alpha=.4)+
   geom_vline(xintercept = mean(res),lwd=1) +
@@ -72,7 +75,9 @@ sem
 
 z <- (58 - 60) / sem  # -2.31
 
+z
 
 pnorm(z)  # prob = 0.010
 
+pnorm(-2.31)
 

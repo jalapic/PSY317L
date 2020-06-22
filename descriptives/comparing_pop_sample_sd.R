@@ -116,6 +116,8 @@ mean(sampSDs) #8.12
 
 
 #### Means
+library(tidyverse)
+
 ggplot(data.frame(means), aes(x=means)) +
   geom_histogram(color='black', fill='blue', alpha=.2)+
   theme_classic() +

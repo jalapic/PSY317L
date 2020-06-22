@@ -53,7 +53,7 @@ unlist(results)
 res <- unlist(results)
 
 mean(res)
-sd(res)
+sd(res) #standard deviation of the sampling distribution, aka standard error
 
 
 

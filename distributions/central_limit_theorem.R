@@ -10,7 +10,7 @@
 ### Example 1.
 
 # here is a uniform distribution.
-# it's 1 million numbers between 15 and 75
+# it's 1 million numbers between 0 and 75
 
 # e.g. trees distance from the center of a forest in km.
 
@@ -30,7 +30,7 @@ ggplot(data.frame(x), aes(x = x)) +
 ### Population Mean & SD
 mean(x)  #37.5
 
-sd(x) #21.6
+sd(x) #21.66
 
 
 
@@ -94,6 +94,7 @@ sd(res)
 
 q <- rnbinom(1000000, 5, .4)
 
+q
 
 # histogram
 ggplot(data.frame(q), aes(x = q)) + 

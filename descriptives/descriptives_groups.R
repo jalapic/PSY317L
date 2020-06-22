@@ -50,7 +50,7 @@ describeBy(wheels, group="strain")
 
 
 
-#### We can also write some custom code using 'dplyr'
+#### We can also write some custom code using 'dplyr'/'tidyverse'
 
 head(wheels)
 
@@ -123,7 +123,7 @@ bmi
 describeBy(bmi, group="educ")
 
 
-# 2. Use 'group_by" and "summarise_if" to calculate the means of all numerical columns in the bmi dataset.
+# 2. Use 'group_by" and "summarise_if" to calculate the means of all numerical columns in the bmi dataset by education level.
 
 bmi %>%
   group_by(educ) %>%
