@@ -99,11 +99,11 @@ library(tidyverse)
 xt <- read_csv("data/crosstimes.csv")
 xt
 
-# Test whether this sample of 10 crossword competitors completed puzzle 3 
-# in less than 15.5 minutes on average.
+
 
 # one-tailed
 # compare sample mean to hypothesized mean of 16.0
+# for time3
 
 xt$time3  # our sample data
 
@@ -126,19 +126,19 @@ jays <- read_csv("data/BlueJays.csv")
 
 # just look at the females.
 jaysF <- jays %>% filter(KnownSex == "F")
-
+head(jaysF)
 
 # 1. Is the variable "BillLength" approximately normal? Use a Shapiro-Test.
 
-__________(jaysF$BillLength)
+shapiro.test(jaysF$BillLength)
 
 
 # 2. Use t-test, to 
 # i)  Calculate a 95% CI of the female population BillLength mean
 # ii) Test if the sample mean is meaningfully larger than 23.5mm
 
-_______(jaysF$BillLength, mu = _____)   # Confidence interval
+t.test(jaysF$BillLength, mu = 23.5)   # Confidence interval
 
-_______(jaysF$BillLength, mu = _____, alternative = ______)   #t-test
+t.test(jaysF$BillLength, mu = 23.5, alternative = "greater")   #t-test
 
 

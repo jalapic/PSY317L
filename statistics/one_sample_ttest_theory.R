@@ -17,7 +17,7 @@
 
 # e.g. The population mean number of words spoken by two year olds by their 2nd birthday is 50 words and is normally distributed.  
 
-# A researcher wanted to investigate if reading to children increases their word knowledge. They collected data from 12 children who were read to for at least tow hours every day. These are the number of words spoken by the 12 children:
+# A researcher wanted to investigate if reading to children increases their word knowledge. They collected data from 12 children who were read to for at least two hours every day. These are the number of words spoken by the 12 children:
 
 x <- c(45, 53, 71, 35, 51, 59, 49, 55, 78, 27, 66, 59)
 
@@ -31,7 +31,7 @@ mean(x)  # 54, which is higher than 50.
 ## Alternative H1:  mu > 50
 
 
-# Our sample is one sample that could have come from the sampling distribution.
+# Our sample mean is one sample mean that could have come from the sampling distribution of sample means.
 
 # What shape is that sampling distribution?
 
@@ -70,22 +70,6 @@ pt(t, df=11, lower.tail = FALSE)  # p value 1 tailed test - proportion above t
 
 pt(t, df=11, lower.tail = TRUE) # proportion below t
 # 0.822
-
-pt(t, df=11, lower.tail = FALSE) * 2  # pvalue if 2-tailed test
-
-
-# in t-tests often we have these 'cutoff' values for p=0.05
-qt(.95, df=11) #1.796
-
-
-ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
-  stat_function(fun = dt, args = list(df = 11)) +
-  xlab("t") +
-  ggtitle("t-distribution for df = 11") +
-  geom_vline(xintercept = t, color="orange", lwd=1) +
-  geom_vline(xintercept = 1.796, color="red", lwd=1, lty=2)
-  
-
 
 
 t.test(x, mu = 50)  # two sided test

@@ -26,8 +26,10 @@ tail(df)
 
 table(df$platform)
 table(df$genre)
+table(df$genre, df$platform)
 
 
+  
 ## "filter" to subset data.
 
 # you can filter several variables at a time, or just one:
@@ -67,8 +69,10 @@ df2
 colnames(df)
 
 # you can select by column number too:
-df %>% select(c(1,2,3,4,9,10))
 
+df %>% select(1,2,3,4,9,10)
+
+df %>% select(1:4,9,10)
 
 
 
@@ -112,19 +116,19 @@ pga1 %>% arrange(year, score.avg)  # sorts data first by year, then by score
 ### you can add a new column with 'mutate'.
 head(pga1)
 
-# let's add a column called putt.pct that is the putting average
+# let's add a column called putt.avg that is the putting average
 # this is total putts divided by total holes.
 
 ## there are two ways:
 
-pga1 %>% mutate(putt.pct = total.putts / total.holes)
+pga1 %>% mutate(putt.avg = total.putts / total.holes)
 
-pga1 <- pga1 %>% mutate(putt.pct = total.putts / total.holes)
+pga1 <- pga1 %>% mutate(putt.avg = total.putts / total.holes)
 
 pga1
 
 # directly
-pga1$par.pct1 <- pga1$total.putts / pga1$total.holes
+pga1$putt.avg1 <- pga1$total.putts / pga1$total.holes
 
 
 
@@ -132,8 +136,8 @@ pga1$par.pct1 <- pga1$total.putts / pga1$total.holes
 
 pga %>%
   select(name, year, total.holes, total.putts, score.avg)  %>%
-  mutate(putt.pct = total.putts / total.holes) %>%
-  arrange(putt.pct)
+  mutate(putt.avg = total.putts / total.holes) %>%
+  arrange(putt.avg)
 
 
 
@@ -145,6 +149,10 @@ pga %>%
 cats <- read_csv("data/austin_cat.csv")
 
 head(cats)
+
+nrow(cats)
+
+ncol(cats)
 
 ## Select animal_id, name,breed, color1, color2, sex, outcome_type
 
@@ -179,44 +187,39 @@ blood
 
 # 1. Filter to only keep rows where smoker is equal to 'yes'
 
-blood %>% filter(smoker __  "_____")
+blood %>% filter(smoker ==  "yes")
 
 
 # 2. Filter to only keep rows where children is equal to 0
 
-blood %>% ______(children ___ ____)
+blood %>% filter(children == 0)
 
 
 # 3. Filter to only keep rows where bpsyst is greater than 115 and hrate is greater than 70.
 
-blood %>% ______(bpsyst ___ ____, hrate __ _____)
+blood %>% filter(bpsyst > 115, hrate > 70)
 
 
 # 4. Select the columns ids, age, smoker, hrate and arrange by hrate (descending order)
 
 blood %>%
-  ______(____, _____, ____, _____, _______) %>%
-  _______(________)
+  select(ids, age, smoker, hrate) %>%
+  arrange(-hrate)
 
 
 # 5. Select the columns ids, state, immuncount, immuncount2, then create a new column called "tot_immun", that is the sum of 'immuncount' and 'immuncount2' 
 
 blood %>%
-  ______(____, _____, ____, _____) %>%
-  _______(tot_immun = ________ __ _________)
+  select(ids, state, immuncount, immuncount2) %>%
+  mutate(tot_immun = immuncount + immuncount2)
 
 
 
 # 6. Filter to only include rows that have the state as "NJ" or "NY".
 
-blood %>% filter(state == _____  __  state == ______)
+blood %>% filter(state == "NJ"  |  state == "NY")
 
 
-# OR
-
-
-
-# all together:
 
 
 

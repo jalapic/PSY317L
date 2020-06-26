@@ -162,7 +162,7 @@ pnorm(1.81)
 
 # convert to z scores:
 
-(990 - 1003.5)  / 35   #-.39
+(990 - 1003.5)  / 35   #-0.39
 (1010 - 1003.5)  / 35  #0.19
 
 z1 <- (990 - 1003.5)  / 35
@@ -217,13 +217,20 @@ pnorm(2.76)  # proportion = 0.997 to left
 
 # What is the probability of a pineapple weighing more than 1014g?
 
+(1014 - 1003.5)  / 35
+
+1 - pnorm(0.3)
 
 
-# What is the probability of a pineapple weighting between 950g and 975g?
+# What is the probability of a pineapple weighing between 950g and 975g?
 
+z1 <- (950 - 1003.5)  / 35
+z2 <- (975 - 1003.5)  / 35
 
+pnorm(z1)
+pnorm(z2)
 
-
+pnorm(z2) - pnorm(z1)
 
 
 ### This is a different/harder example. It's looking at real data that is not normally distributed.
@@ -242,13 +249,15 @@ tail(pga15)
 
 vals <- pga15$driveavg # store the values in the column as 'vals'
 
-z.vals <- (vals - ____(vals)) / ______(vals) # make the z-scores
+z.vals <- (vals - mean(vals) ) / sd(vals) # make the z-scores
 
 df.vals <- data.frame(z = z.vals) # put the zscores into a dataframe
 
+head(df.vals)
+
 # make histogram
 
-ggplot(_____, aes(x = _____)) + 
+ggplot(df.vals, aes(x = z)) + 
   geom_histogram(color = "black", fill = "mistyrose", alpha=0.5) +
   theme_classic()
 

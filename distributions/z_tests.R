@@ -17,7 +17,7 @@ source("distributions/plothist.R")
 
 
 ### Population:  Mean = 10,  SD = 0.2
-# Sample:  n = 25,  mean = 10.1
+# Sample:  n = 25,  sample mean = 10.1
 
 x <- 10.1
 
