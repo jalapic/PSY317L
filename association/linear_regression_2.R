@@ -1,9 +1,5 @@
 
-### Ordinary Least Squares Regression:
-
-## Visualizing Residuals....
-
-## & Understanding R2.
+### Residuals & R2
 
 
 
@@ -36,15 +32,7 @@ mod1$coefficients
 
 
 
-### Let's visualize the residuals in more detail:
-
-head(df)
-
-tail(df)
-
-
-
-### But let me show you how they come about:
+### How to calculate the residuals:
 
 
 X <- df$dan.sleep  # the predictor
@@ -63,10 +51,10 @@ head(df)
 tail(df)
 
 
-# so to get the residual,  y' - y
-Y.pred - df$dan.grump
+# so to get the residual,  y - y'
+df$dan.grump - Y.pred
 
-df$residuals <- Y.pred - df$dan.grump 
+df$residuals <- df$dan.grump - Y.pred
 
 head(df)
 
@@ -82,7 +70,7 @@ tail(df)
 p1 <- ggplot(df, aes(x = dan.sleep, y = dan.grump)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +   
-  geom_segment(aes(xend = dan.sleep, yend = dan.grump+residuals), alpha = .2, color='red') + 
+  geom_segment(aes(xend = dan.sleep, yend = dan.grump-residuals), alpha = .5, color='red') + 
  # geom_point(aes(y = dan.grump+residuals), shape = 1) +
   theme_classic() +
   ggtitle("OLSR best fit trendline")
@@ -96,8 +84,9 @@ p1
 # What would the size of these red residual lines be for those?
 
 
-# how we do this is to compare our residuals to a flat trendline at Y mean.
+# how we do this, is to compare our residuals to a flat trendline at the Y mean.
 
+mean(df$dan.grump)
 
 ggplot(df, aes(x = dan.sleep, y = dan.grump)) + 
   geom_point() + 
@@ -107,33 +96,80 @@ ggplot(df, aes(x = dan.sleep, y = dan.grump)) +
 
 head(df)
 
+df$Ymean <- mean(df$dan.grump)
+
+head(df)
+
+df$resid_Ymean <- df$dan.grump - df$Ymean  #residual from Ymean
+
+
+head(df)
+
+
+## visualize this:
+
+p2 <- ggplot(df, aes(x = dan.sleep, y = dan.grump)) +
+  geom_point() +
+  geom_hline(yintercept = mean(df$dan.grump), color='blue') +
+  geom_segment(aes(xend = dan.sleep, yend = dan.grump-resid_Ymean), alpha = .5, color='red') + 
+  # geom_point(aes(y = dan.grump+residuals), shape = 1) +
+  theme_classic() +
+  ggtitle("Residuals to the mean Y")
+
+p2
 
 
 
-SS.resid <- sum( (Y - Y.pred)^2 )
-
-SS.tot <- sum( (Y - mean(Y))^2 )
-
+library(gridExtra)
+grid.arrange(p1,p2,nrow=1)
 
 
+### Instead of using 'raw residuals', one way to measure how far away residuals are is to square them
+
+# Squaring the residuals:
+
+head(df)
+
+df$residuals2 <- df$residuals ^ 2               # raw residuals
+
+df$resid_Ymean2 <- df$resid_Ymean ^ 2           # total residuals
+
+head(df)
+
+# we want the raw residuals to be as small a fraction as possible of the total residuals
 
 
-# But what are these:
 
-#you can actually get them like this:
+SS.resid <- sum(df$residuals2)
+SS.resid  #1838.722
 
-mod1$residuals
-
-df$residuals <- mod1$residuals
-
-
-https://learningstatisticswithr.com/book/regression.html#regressionassumptions
+SS.tot <- sum(df$resid_Ymean2)
+SS.tot    #9998.59
 
 
-https://rstudio-pubs-static.s3.amazonaws.com/295773_71ccdfba50b84d48a870c4b83c2cd96d.html#
+# to make these numbers interpretable, we convert them to R2.
 
-https://training-course-material.com/training/Standard_Error_of_the_Estimate#:~:text=The%20standard%20error%20of%20the%20estimate%20is%20a%20measure%20of,of%20the%20average%20squared%20deviation.
+# if the trendline is absolutely useless at predicting the y values,
+# then the trendline would have residuals as high as the total residuals.
 
-https://bookdown.org/jefftemplewebb/IS-6489/linear-regression.html
+# if the trendline is perfect at predicting the y values, then the residual SS total would be 0.
 
+1 -  (SS.resid/SS.tot)   # 0.816   (this is R2)
+
+
+# remember our linear model:
+mod1
+
+summary(mod1)  # the R2 matches
+
+
+
+## Remember, a short hand way of getting R2 is to square the Pearson r:
+cor(df$dan.sleep, df$dan.grump)
+
+r <- cor(df$dan.sleep, df$dan.grump)
+
+r
+
+r^2
 

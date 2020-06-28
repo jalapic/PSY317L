@@ -91,6 +91,10 @@ mod1$coefficients
 summary(mod1)
 
 
+# Finally, we have a confidence interval around 'b'
+confint(object = mod1, level = .95)
+
+
 # In brief:
 
 # Residuals:  broad descriptive info of variability
