@@ -117,9 +117,3 @@ plot(mod1, which = 3)
 
 
 
-
-### 4. No 'bad' outliers ----
-
-
-# What makes an outlier is a contentious point
-
