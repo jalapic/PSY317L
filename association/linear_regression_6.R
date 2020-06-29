@@ -44,6 +44,8 @@ residuals(mod1)  # these are standardized residuals (but ok for now)
 
 df$resids <- residuals(mod1)
 
+head(df)
+
 #a) histogram plot
 ggplot(df, aes(x=resids)) + geom_histogram(color='white') # possibly ok
 

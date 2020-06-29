@@ -1,5 +1,5 @@
 
-#### Outliers
+#### Unusual Datapoints
 
 
 # Generally linear regression models should not be overly affected by individual data points

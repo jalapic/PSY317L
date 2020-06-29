@@ -32,7 +32,7 @@ mod1
 
 X <- df$dan.sleep  # the predictor
 Y <- df$dan.grump  # the outcome
-Y.pred <-  125.97   +   (-8.94 * X)
+Y.pred <-  125.96   +   (-8.94 * X)
 df$residuals <- df$dan.grump - Y.pred
 df$residuals2 <- df$residuals^2
 

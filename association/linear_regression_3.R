@@ -33,8 +33,8 @@ mod1
 
 X <- df$dan.sleep  # the predictor
 Y <- df$dan.grump  # the outcome
-df$Y.pred <-  125.97   +   (-8.94 * X)  # add predicted Y
-df$residuals <- df$dan.grump - Y.pred  # add residuals
+df$Y.pred <-  125.96   +   (-8.94 * X)  # add predicted Y
+df$residuals <- df$dan.grump - df$Y.pred  # add residuals
 df$residuals2 <- df$residuals^2  # residuals squared
 
 
@@ -96,7 +96,7 @@ summary(mod1) # the s_est is given as 'residual standard error'
 
 # As a rule of thumb:
 #  Approximately 95% of the observations should fall within 
-#  plus/minus 2*standard error of the regression from the regression line
+#  plus/minus 2*standard error of the estimates from the regression line
 
 mod1
 

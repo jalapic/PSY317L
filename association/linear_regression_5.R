@@ -54,7 +54,7 @@ summary(mod1)
 
 # t = b / se(b)
 
-# that would be a measure of how typical/atypical our obsereved estimate of 'b' was....
+# that would be a measure of how typical/atypical our observed estimate of 'b' was....
 
 # it turns out that the t-shaped sampling distribution has d.f. n - number of predictors - 1
 # (a bit different to e.g. a one-sample-t-test)
@@ -129,9 +129,6 @@ pt(t, df=98) # gives the exact p-value
 # t is the critical value of t for a 2-tailed test
 # for a 95% CI, we get the value at 97.5% of the t distribution for df = n - 2
 
-# easy way - gives us the confidence interval:
-confint(object = mod1, level = .95)
-
 
 # by hand - for d.f = 98:
 
@@ -142,4 +139,7 @@ b + (tval * sb)
 
 b - (tval * sb)
 
+
+# easy way - gives us the confidence interval:
+confint(object = mod1, level = .95)
 

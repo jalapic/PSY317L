@@ -51,7 +51,7 @@ cor.test(df$dan.sleep, df$dan.grump)
 # y' = a + bx + e 
 
 # e is the error, or:
-# y' - y  (the difference of each data point from the predicted value =  a residual)
+# y - y'  (the difference of each data point from the predicted value =  a residual)
 
 
 # The estimated regression coefficients,  a & b, 
@@ -120,3 +120,36 @@ confint(object = mod1, level = .95)
 ##### Try for yourself examples --------------------------
 
 
+## read in the data BlueJays.csv
+
+jays <- read_csv("data/BlueJays.csv")
+head(jays)
+
+# make the scatterplot
+ggplot(jays, aes(x= Mass, y = Head)) + 
+  geom_point() +
+  stat_smooth(method='lm', se=F)
+
+
+# perform a linear regression, examining if mass predicts head size.
+
+mod <- lm(Head ~ Mass, data = jays)
+
+# examine the output - what are 'a' and 'b' for the regression?
+mod
+
+
+# get the estimates and other linear model output summary:
+
+summary(mod)
+
+# what is the R2?
+# what is the standard error of the estimate?
+# what are the degrees of freedom?
+# Is the model a good fit?
+
+# is the slope significantly different from 0 ?
+
+# get the confidence intervals for the slope b?
+
+confint(mod)
