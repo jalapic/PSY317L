@@ -65,8 +65,8 @@ ggplot(jayM, aes(x=Mass, y=Head)) +
 
 ## Test for normality using Shapiro-Wilks tests and QQ Plots ----
 
-shapiro.test(jayM$Mass)  # P > 0.05, therefore cannot reject null that data is normal
-shapiro.test(jayM$Head)  # P > 0.05, therefore cannot reject null that data is normal
+shapiro.test(jayM$Mass)  # P > 0.05, therefore cannot reject null that data is not normal
+shapiro.test(jayM$Head)  # P > 0.05, therefore cannot reject null that data is not normal
 
 qqnorm(jayM$Mass)
 qqline(jayM$Mass, col = "steelblue", lwd = 2)
