@@ -1,6 +1,54 @@
 levene test for equal variances
 
 
+
+
+# you can write your formula differently depending on if you have wide or long data:
+
+
+
+library(tidyverse)
+
+anastasia <- c(65, 74, 73, 83, 76, 65, 86, 70, 80, 55, 78, 78, 90, 77, 68)
+bernadette <- c(72, 66, 71, 66, 76, 69, 79, 73, 62, 69, 68, 60, 73, 68, 67, 74, 56, 74)
+
+
+mean(anastasia)            # 74.5
+sd(anastasia)              # 9.0
+nA<-length(anastasia)      # 15
+nA
+
+mean(bernadette)           # 69.1
+sd(bernadette)             # 5.8
+nB <- length(bernadette)   # 18
+nB
+
+
+# plot the data:
+dd <- data.frame(values = c(anastasia, bernadette),
+                 group = c(rep("Anastasia",15), rep("Bernadette", 18))
+)
+
+dd
+
+ggplot(dd, aes(x = group, y = values, fill = group)) +
+  geom_boxplot(alpha=.3, outlier.shape = NA) +
+  geom_jitter(width=.1, size=2) +
+  theme_classic() +
+  scale_fill_manual(values = c("firebrick", "dodgerblue"))
+
+
+## assume mean of sampling distribution is
+
+meandif <- mean(anastasia)  - mean(bernadette)   # 5.48
+meandif
+
+dd
+t.test(values ~ group, data = dd)
+
+
+
+
 ### Comparing Medians or Means
 
 library(tidyverse)
