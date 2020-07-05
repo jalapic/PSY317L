@@ -1,3 +1,5 @@
+levene test for equal variances
+
 
 ### Comparing Medians or Means
 
