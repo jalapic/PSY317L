@@ -1,5 +1,9 @@
 #### Confidence Interval for Difference in Means
 
+
+## This tutorial is a bit more theory..
+
+
 library(tidyverse) # just for plotting
 
 
@@ -25,7 +29,7 @@ nB
 # plot the data:
 d <- data.frame(values = c(groupA, groupB),
                 group = c(rep("A",10), rep("B", 14))
-                )
+)
 
 d
 
@@ -57,8 +61,14 @@ mean(groupA)  - mean(groupB)   # -0.76
 
 # that sampling distribution is has a mean, and a standard deviation
 
-# if we assume that our observed value of the difference in means is the mean of that sampling distribution
+# if we assume that our observed value of the difference in means 
+# is the mean of that sampling distribution
 # then we can create a 95% confidence interval around it.
+
+
+# CI =  sample_dif +/-  t * SEDM 
+
+
 
 
 # If we assume equal variances between the population of group A and B, we can calculate the
@@ -68,8 +78,15 @@ mean(groupA)  - mean(groupB)   # -0.76
 # it's equal to:
 # the pooled estimate of the common standard devation * sqrt(1/n1 + 1/n2)
 
-# the formula for the pooled estimate of the common standard deviation is long-winded:
+sd(groupA)  #0.91
 
+sd(groupB)  #0.58
+
+
+# the formula for the pooled estimate of the common standard deviation is long-winded:
+# we discuss it in more detail in another video
+
+# from first principles, calculating deviations from each group mean
 difA2 <- (groupA - mean(groupA))^2
 difB2 <- (groupB - mean(groupB))^2
 sumsq <- sum(difA2) + sum(difB2)
@@ -82,23 +99,65 @@ sedm <-  sd.pool * sqrt( (1/nA) + (1/nB))
 
 sedm
 
+
+
+## So now we have the mean and the sd of our sampling distribution of difference in sample means.
+
+
+# For CIs, we assume the mean to be our estimate of the mean differences:
+
+mean(groupA)  - mean(groupB)  #-0.76
+
+
+# Because our sampling distribution approximates to a t-distribution of d.f. n-2
+# we calculate the value of 't' which leaves 2.5% in the tails.
+
 tval <- qt(.975, df = n-2)
 tval
 
-mean(groupA)  - mean(groupB) 
 
--0.76 +  (tval*sedm)
--0.76 -  (tval*sedm)
-
-
-t.test(groupA, groupB, var.equal = T)
+-0.76 +  (tval*sedm)  # upper bound = -0.13
+-0.76 -  (tval*sedm)  # lower bound = -1.39
 
 
-
-t.test(groupA, groupB)
+t.test(groupA, groupB, var.equal = T)  # this is the t-test function
 
 
 
+
+### Visualizing this:
+
+# Don't worry about the gross loooking code... just using it to make the plot:
+
+m <- -0.76 # mean
+v <- sedm^2 # variance, sedm squared
+df <- 22
+vals <- rt(n=500000, df=df)*sqrt(v * (df-2)/df) + m
+df1 <- data.frame(val = vals)
+
+
+ggplot(df1, aes(x=val)) +
+  geom_histogram(aes(y = ..density..), color='black', fill='#1930FF', alpha=.3)+
+  theme_classic()+
+  geom_density(alpha = 0.7, fill = "white") + 
+  geom_vline(xintercept = -0.13, lwd=1, color="red") + 
+  geom_vline(xintercept = -1.39, lwd=1, color="red") + 
+  geom_vline(xintercept = -0.76, lwd=1,lty=2, color='black')+
+  xlab("Difference in Sample Means") +
+  ylab("") +
+  ggtitle("Sampling Distribution of Differences in Sample Means",
+          subtitle = "Red Lines Represent 95% CIs")
+
+
+
+
+
+
+
+
+
+
+###########
 
 
 ### Example 2:  Harpo Data...
@@ -135,12 +194,17 @@ ggplot(dd, aes(x = group, y = values, fill = group)) +
 ## assume mean of sampling distribution is
 
 meandif <- mean(anastasia)  - mean(bernadette)   # 5.48
-meandif
+meandif # this is our observed difference in sample means
 
 
-## to get standard deviation of sampling distribution:
+
+meandif  # we assume that this is the mean of the sampling distribution
+
+
+## to get standard deviation of this sampling distribution:
 
 # 1. get pooled standard variation:
+# this is in the way of calculating average squared deviations.
 
 difA2 <- (anastasia - mean(anastasia))^2
 difB2 <- (bernadette - mean(bernadette))^2
@@ -149,12 +213,14 @@ n <- nA + nB #33
 sd.pool <- sqrt(sumsq/(n-2))
 sd.pool  #7.41
 
-# 2. the standard deviation is equal to the pooled tandard devation * sqrt(1/n1 + 1/n2)
+# 2. the standard deviation is equal to the pooled standard devation * sqrt(1/n1 + 1/n2)
 
 sedm <-  sd.pool * sqrt( (1/nA) + (1/nB))
 
-sedm  # 2.59
+sedm  # 2.59   # our standard deviation of the sampling dist.
 
+
+# now we get our value of t for df n-2 that leaves 2.5% in each tail:
 tval <- qt(.975, df = nA + nB -2)
 tval  #2.04
 

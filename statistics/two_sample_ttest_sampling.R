@@ -1,4 +1,4 @@
-#### Visualizing Sampling Distribution in 2 Sample t-test
+#### Visualizing The Sampling Distribution in 2 Sample t-test
 
 
 
@@ -36,6 +36,12 @@ sd(B)     #2.5
 mean(A) - mean(B) #2.997
 
 
+
+### Usually though we just take samples...
+
+set.seed(1) # so we get the same values
+
+
 ## But what if we took 1 sample of size 17 for group A, and 1 sample of size 20 for group B?
 
 a1 <- sample(A, 17)
@@ -47,7 +53,7 @@ b1
 mean(a1)
 mean(b1)
 
-mean(a1) - mean(b1)  # 3.33 (which is pretty close to the real difference !)
+mean(a1) - mean(b1)  # 2.85 (which is pretty close to the real difference !)
 
 
 
@@ -63,7 +69,7 @@ b2
 mean(a2)
 mean(b2)
 
-mean(a2) - mean(b2)  # 4.39 (that's a bit bigger than the real difference)
+mean(a2) - mean(b2)  # 3.36 (that's a bit bigger than the real difference)
 
 
 
@@ -90,7 +96,7 @@ unlist(difs)   # our sampling distribution
 
 # what's the average difference in sample means?
 
-mean(unlist(difs))  # 3.0
+mean(unlist(difs))  # 2.99
 
 # more or less the same as the real difference in the populations...
 
@@ -108,17 +114,30 @@ ggplot(df, aes(x=dif)) +
 
 
 ## So, we have a symmetrical sampling distribution of difference in sample means...
-## with mean = 3.0
+## with mean basically = 3.0
 
 
 
 ## What is the Standard Deviation of this distribution?
 
 # ?!&*(&)@&&***!! aaggghhh (see separate video about this)
+# it's a little harder to work out........
 
-# in short, for our example we can work it out directly:
+# if this were a sampling distribution of sample means, 
+# we could estimate it by doing for one sample by:  s/sqrt(n)
+# but this is a sampling distribution of difference in sample means...
+
+
+# Because we created the sampling distribution by taking 10,000 samples
+# we can work it out directly:
 sd(unlist(difs))  # 0.82
 
+
+
+
+### Brief Diversion.....
+## Instead of just working it out from our 10,000 samples, 
+# there is a way of working out the SD of the sampling distribution from the original populations
 
 # there is also something called "variance sum law" that gives us a shortcut:
 # essentially, if you want to know the variance of the difference of two variables
@@ -130,7 +149,17 @@ sd(unlist(difs))  # 0.82
 sqrt((var(A)/17) + (var(B)/20)) #0.82
 
 
- 
+
+# but in reality, you'll only have one lot of your 2 samples.
+# there needs to be a way to estimate this standard deviation from those two samples...
+
+# and there is !!! ......   we'll cover in another video/lecture.
+
+
+
+######################################################################
+
+
 
 
 ##### Example 2: No differences in Population Means
@@ -237,6 +266,8 @@ sqrt((var(C)/11) + (var(D)/14)) #1.2
 
 # The question becomes, what if you only have one sample of A & B, or one sample of C & D
 # Would you be able to infer if there was really a population difference in means or not?
+
+# you use your sample data, to infer the shape of the sampling distribution...
 
 
 

@@ -1,13 +1,13 @@
-levene test for equal variances
+
+### Overview of how to do 2 sample t-tests in R
 
 
-
-
-# you can write your formula differently depending on if you have wide or long data:
-
-
+# this tutorial is not about theory - just about doing.
 
 library(tidyverse)
+
+
+## Let's look at the data:
 
 anastasia <- c(65, 74, 73, 83, 76, 65, 86, 70, 80, 55, 78, 78, 90, 77, 68)
 bernadette <- c(72, 66, 71, 66, 76, 69, 79, 73, 62, 69, 68, 60, 73, 68, 67, 74, 56, 74)
@@ -29,8 +29,10 @@ dd <- data.frame(values = c(anastasia, bernadette),
                  group = c(rep("Anastasia",15), rep("Bernadette", 18))
 )
 
-dd
+dd  # the data are in long format.
 
+
+# boxplot
 ggplot(dd, aes(x = group, y = values, fill = group)) +
   geom_boxplot(alpha=.3, outlier.shape = NA) +
   geom_jitter(width=.1, size=2) +
@@ -38,107 +40,112 @@ ggplot(dd, aes(x = group, y = values, fill = group)) +
   scale_fill_manual(values = c("firebrick", "dodgerblue"))
 
 
-## assume mean of sampling distribution is
-
-meandif <- mean(anastasia)  - mean(bernadette)   # 5.48
-meandif
-
-dd
-t.test(values ~ group, data = dd)
 
 
+## Before we go on, we should check two things:
 
 
-### Comparing Medians or Means
+##  1. One assumption is that are data are approximately normal:
 
-library(tidyverse)
+shapiro.test(anastasia)  # p>.05 so data approximately normal
+shapiro.test(bernadette) # p>.05 so data approximately normal
 
-# some example data:
+# you could also do QQ plots...
 
-df1 <- read_csv("https://raw.githubusercontent.com/jalapic/IntroR/master/bloodwork.csv")
-head(df1)
+qqnorm(anastasia)
+qqline(anastasia, col = "steelblue", lwd = 2) # looks ok
+
+qqnorm(bernadette)
+qqline(bernadette, col = "steelblue", lwd = 2) # looks ok
 
 
 
-## COMPARING BETWEEN TWO INDEPENDENT GROUPS
+##  2. Another assumption is that we have homogeneity of variance:
+# equality of variance between groups
+
+sd(anastasia)
+sd(bernadette)
+
+var(anastasia)
+var(bernadette)  # are these close enough???
+
+# you can do a Levene's test to test for this, from the package 'car':
+library(car)
+leveneTest(y = dd$values, group = dd$group)
+
+# a p-value of >.05 indicates that there is not sufficient evidence to suggest that the groups have different variances
+# i.e. p>.05, we can assume the groups have the same variance.
+
+
+
+### Doing the t-test 
+
+# OK let's do the test  - first 2-tailed
+
+# this is the Student's t-test:
+t.test(anastasia, bernadette, var.equal = T)
+
+
+# you can also use data from long format:
+head(dd)
+t.test(values ~ group, data=dd, var.equal = T)
+
+
+
+### What about one-tailed tests?
+
+# this would be the case if you had a priori prediction:
+
+
+# these are the same
+t.test(anastasia, bernadette, var.equal = T, alternative = "greater")
+
+t.test(values ~ group, data=dd, var.equal = T, alternative ="greater")
+
+
+# if you were predicting group A would have a mean lower than group B
+t.test(anastasia, bernadette, var.equal = T, alternative = "less")
 
 
 
 
-## Plot Data of heart rate of smokers vs non-smokers
+## The Big Elephant in the Room......
 
-ggplot(df1, aes(x=smoker, y=hrate)) + geom_boxplot()
+# We are doing Student's t-tests here.  
+# They assume equal variances between groups.
 
+# There is actually an independent 2 sample t-test you can run that doesn't
+# It applies a correction - it's called the Welch's t-test
 
+# There is no reason not to use the Welch's test (I recommend you do):
+# you don't have to worry about equal variances:
 
-
-## Independent t-test
-
-t.test(hrate ~ smoker, data=df1) # 2-tailed
-
-# should you need a 1-tailed test you can do it this way:
-t.test(hrate ~ smoker, data=df1, alternative = "less") # 1-tailed
-t.test(hrate ~ smoker, data=df1, alternative = "greater") # 1-tailed
+# just drop the "var.equal" thing:
 
 
+t.test(anastasia, bernadette)  # notice the changes...
+
+t.test(anastasia, bernadette, var.equal = T) # this is the Student's for comparison
 
 
-## Wilcoxon Ranked Sum Test
 
-wilcox.test(hrate ~ smoker, data=df1) # 2-tailed
-
-# should you need a 1-tailed test you can do it this way:
-
-wilcox.test(hrate ~ smoker, data=df1, alternative = "less") # 1-tailed
-wilcox.test(hrate ~ smoker, data=df1, alternative = "greater") # 1-tailed
+t.test(anastasia, bernadette, alternative = "greater") 
 
 
-## test normality of data:
-# you use this to test if your data are normal or not
-# if not normal, you should use the Wilcoxon Ranked Sum Test
 
-shapiro.test(df1$hrate)  # if p-value lower than 0.05 then data not normal.
+
+## Effect Size for Independent two sample t-tests:
+
+# the difference between the means of each group divided by the pooled standard deviation
+
+library(lsr)
+cohensD(values ~ group, data = dd)  # d = 0.74
 
 
 
 
 
+##### Try For Yourself Examples ----
 
-### COMPARING PAIRED DATA.  
+# insert here
 
-
-head(df1)
-
-#e.g. compare the values of immuncount to immuncount2
-
-
-## Paired t-test
-t.test(df1$immuncount, df1$immuncount2,  paired=TRUE) #2-tailed
-
-# should you need a 1-tailed test you can do it this way:
-t.test(df1$immuncount, df1$immuncount2,  paired=TRUE, alternative = "less") # 1-tailed
-t.test(df1$immuncount, df1$immuncount2,  paired=TRUE, alternative = "greater") # 1-tailed
-
-
-
-## Wilcoxon Signed Rank Test
-wilcox.test(df1$immuncount, df1$immuncount2,  paired=TRUE) #2-tailed
-
-# should you need a 1-tailed test you can do it this way:
-wilcox.test(df1$immuncount, df1$immuncount2,  paired=TRUE, alternative = "less") # 1-tailed
-wilcox.test(df1$immuncount, df1$immuncount2,  paired=TRUE, alternative = "greater") # 1-tailed
-
-
-
-### To visualize data like this is a bit harder - 
-# you need to bring the data from the two columns into one column...
-
-df2 <- df1 %>% gather(key,value,10:11) %>% select(ids, key,value)
-head(df2)
-tail(df2)  # notice our data are now in long-format.
-
-#visualize if cell counts change from time1 to time2 
-ggplot(df2, aes(x=key, y=value)) + geom_boxplot()
-
-# better plot showing individual lines
-ggplot(df2, aes(x=key, y=value, group=ids)) + geom_point() + geom_line()
