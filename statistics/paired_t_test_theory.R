@@ -31,7 +31,7 @@ ggplot(chico, aes(x=grade_test1, y=grade_test2)) +
 
 ## If we just ran the test we'd do this:
 
-
+t.test(chico$grade_test2, chico$grade_test1, paired=T)
 
 
 
@@ -90,7 +90,8 @@ t.test(chico$grade_test2, chico$grade_test1, paired=T)  # notice it's the same a
 ## To break it down, how does it get the confidence intervals ?
 
 
-# we assume our one sample comes from a sampling dist of shape t with d.f. = n-1
+# we assume our one sample comes from a sampling dist of 
+# shape t with d.f. = n-1
 
 nrow(chico) - 1  #19
 

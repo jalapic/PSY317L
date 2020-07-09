@@ -1,7 +1,7 @@
 #### t-test Permutation
 
 
-### The principle of permutation tests can be applied to t-tests also
+### The principle of permutation tests can be applied to t-tests
 
 
 library(tidyverse)
@@ -35,7 +35,7 @@ ggplot(dd, aes(x = group, y = values, fill = group)) +
   scale_fill_manual(values = c("firebrick", "dodgerblue"))
 
 
-## assume mean of sampling distribution is
+## our observed mean difference between samples is:
 
 meandif <- mean(anastasia)  - mean(bernadette)   # 5.48
 meandif
@@ -134,9 +134,9 @@ ggplot(df, aes(x=difs)) +
 
 # so how many times did we get a difference in means that was higher than 5.48?
 
-sum(unlist(results) > 5.48)  # 202 times out of 10000
+sum(unlist(results) > 5.48)  # 201 times out of 10000
 
-sum(unlist(results) > 5.48) /10000  # which is 0.0202 proportion of the time
+sum(unlist(results) > 5.48) /10000  # which is 0.0201 proportion of the time
 
 # this is sort of equivalent to a 1-tailed p-value ....
 
@@ -204,7 +204,7 @@ ggplot(df0, aes(x=difs)) +
   ggtitle("Mean Differences from \n 10000 Permutations of Raw Data")
 
 
-sum(unlist(results) > 2.128)  # 109 times out of 10000
+sum(unlist(results) > 2.128)  # 115 times out of 10000
 
-sum(unlist(results) > 2.128) /10000  # which is 0.0109 proportion of the time
+sum(unlist(results) > 2.128) /10000  # which is 0.0115 proportion of the time
 

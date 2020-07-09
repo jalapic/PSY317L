@@ -31,7 +31,7 @@ sd(B)     #2.5
 
 
 
-## OK, the true difference between these groups in means is 
+## OK, the true difference between these populations in means is 
 
 mean(A) - mean(B) #2.997
 
@@ -53,7 +53,7 @@ b1
 mean(a1)
 mean(b1)
 
-mean(a1) - mean(b1)  # 2.85 (which is pretty close to the real difference !)
+mean(a1) - mean(b1)  # 0.6 (which isn't pretty close to the real difference !)
 
 
 
@@ -69,7 +69,7 @@ b2
 mean(a2)
 mean(b2)
 
-mean(a2) - mean(b2)  # 3.36 (that's a bit bigger than the real difference)
+mean(a2) - mean(b2)  # 3.8 (that's a bit bigger than the real difference)
 
 
 
@@ -96,7 +96,7 @@ unlist(difs)   # our sampling distribution
 
 # what's the average difference in sample means?
 
-mean(unlist(difs))  # 2.99
+mean(unlist(difs))  # 3.00
 
 # more or less the same as the real difference in the populations...
 
@@ -130,7 +130,7 @@ ggplot(df, aes(x=dif)) +
 
 # Because we created the sampling distribution by taking 10,000 samples
 # we can work it out directly:
-sd(unlist(difs))  # 0.82
+sd(unlist(difs))  # 0.83
 
 
 
@@ -195,7 +195,7 @@ sd(D)     #3
 
 
 ## OK, the true difference between these groups in means is 
-mean(C) - mean(D) #0
+mean(C) - mean(D) #0.00
 
 
 # Let's look at one sample of size 11 for population C 
@@ -211,7 +211,7 @@ mean(c1)
 
 mean(d1)
 
-mean(c1) - mean(d1)  # 1.56
+mean(c1) - mean(d1)  # 1.54
 
 
 # if we did this lots of times, we'd sometimes get sample means that were larger in C and 
