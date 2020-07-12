@@ -50,3 +50,4 @@ p4 <- p +  geom_line(color='red',lwd=1, data=dfx4, aes(x=tdist4,y=Density4)) +
 
 library(gridExtra)
 grid.arrange(p1,p2,p3,p4,nrow=2)
+
