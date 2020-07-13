@@ -57,8 +57,12 @@ bb <- c(9, 11)
 
 c(aa, bb)
 
+c("aa","bb")
+
 new_v <- c(aa, bb)
 new_v
+
+
 
 # you can mix numbers and characters
 cc <- 10
@@ -182,6 +186,10 @@ sum(x==10)
 
 
 ### You can do some indexing with these too, to filter out what you want:
+
+x
+
+x[5]
 
 x[x==10]
 

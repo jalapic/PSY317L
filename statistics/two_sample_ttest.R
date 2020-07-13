@@ -78,7 +78,7 @@ leveneTest(y = dd$values, group = dd$group)
 
 
 
-### Doing the t-test 
+### Doing the Student's t-test 
 
 # OK let's do the test  - first 2-tailed
 
@@ -147,5 +147,38 @@ cohensD(values ~ group, data = dd)  # d = 0.74
 
 ##### Try For Yourself Examples ----
 
-# insert here
+# load in the BlueJays
 
+jays <- read_csv("data/BlueJays.csv")
+head(jays)
+
+maleJays <- jays %>% filter(KnownSex=="M")
+femaleJays <- jays %>% filter(KnownSex=="F")
+
+#plot
+
+ggplot(jays, aes(x=KnownSex, y=BillDepth)) +
+  geom_boxplot()+
+  geom_jitter(width=.1)+
+  theme_classic()
+
+
+# 1. perform a Shapiro-Wilk test to determine if BillDepth is normally distributed for male and female jays
+
+shapiro.test(maleJays$BillDepth)
+shapiro.test(femaleJays$BillDepth)
+
+
+# 2. Use the long-form data to perform a two-tailed Welch's t-test to see if there are differences in the means between male and females in BillDepth
+
+t.test(BillDepth ~ KnownSex, data = jays)
+
+
+# 3. Do a 1-tailed test to determine if male Blue Jays have heavier skulls than female jays.
+
+t.test(maleJays$Skull, femaleJays$Skull, alternative="greater")
+
+
+# 4. Compute the effect size for our BillDepth t-test using 'cohensD'
+library(lsr)
+cohensD(BillDepth ~ KnownSex, data = jays)  

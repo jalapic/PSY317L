@@ -5,11 +5,6 @@
 # I'm not dicussing the theory here
 
 
-
-
-
-
-
 library(tidyverse)
 
 

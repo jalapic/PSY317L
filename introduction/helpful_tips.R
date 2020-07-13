@@ -10,12 +10,28 @@
 # pick something that makes sense
 mycolors <- c("mistyrose", "dodgerblue", "pink")
 
+mycolors1 <- c("mistyrose", "dodgerblue", "pink")
+
+my1colors <- c("mistyrose", "dodgerblue", "pink")
+
 
 #  - you can use characters or numbers in object names, or both
 
+# - you cannot start with a number though
+
+1mycolors <- c("mistyrose", "dodgerblue", "pink")
+
+
+
 # - do not use spaces
+my colors <- c("mistyrose", "dodgerblue", "pink")
+
 
 # - try to use lower case ideally
+MyColors <- c("mistyrose", "dodgerblue", "pink")
+
+MYCOLORS <- c("mistyrose", "dodgerblue", "pink")  # no !
+
 
 # - do not use any puncutation in names for objects, dataframes or column names except for the period `.` or underscore `_`. Everything else is forbidden.
 
@@ -24,7 +40,11 @@ mycolors <- c("mistyrose", "dodgerblue", "pink")
 _mynumber <- 17  #not allowed
 
 
+
 # - you can use a period `.` at the beginning of an object name, but please don't.
+
+.mynumber <- 99
+
 
 # - periods `.` and underscores `_` are best used in the middle of object names to help read the name, e.g.
 
@@ -44,7 +64,7 @@ primes
 # - you should avoid using certain words, as they have other meanings in R
 # see book for list.
 
-
+# e.g. while, if, break, etc.
 
 
 
@@ -60,6 +80,12 @@ primes
 #
 a <- c(1,2,3)
 b <- c(4,5,6)
+
+a
+
+b
+
+
 a + b
 
 
@@ -102,15 +128,15 @@ b <- c(3, 6, 9 10)
 x <- c(5,  8, )
 
 
-
 # check quote marks
 
 days <- c("Monday", "Tuesday", Wednesday)
 days
 
-
 days <- c("Monday', "Tuesday", 'Wednesday')
 days
+
+
 
 
 

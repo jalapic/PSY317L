@@ -1,9 +1,6 @@
 # Basic Syntax
 
 
-
-
-
 ## Boring mathematical stuff
 
 
@@ -78,7 +75,7 @@ x * 10
 
 # you can assign/save lots of things, and you can call them almost anything 
 
-hooray <- 17 + 4  # thanks for using this sign
+hooray <- 17 + 4  
 hooray
 
 hooray + 5
