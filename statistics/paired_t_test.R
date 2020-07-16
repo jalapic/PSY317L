@@ -166,7 +166,39 @@ mean(chico$improvement) / sd(chico$improvement)  # 1.45
 
 ##### Try For Yourself Examples ----------------
 
+# take a look at these before and after scores
 
-# insert here.
+ba <- read_csv("data/beforeafter.csv")
+
+head(ba)
+
+# make a scatterplot with the x being 'before' and y being 'after'
+ggplot(ba, aes(x=before, y=after)) +
+  geom_point() +
+  theme_classic()+
+  geom_abline(intercept =0 , slope = 1)
 
 
+# run a Shapiro test on the before and after columns to check normality
+
+shapiro.test(ba$before)
+shapiro.test(ba$after)
+
+# create a difference column for the difference between before and after
+
+ba$difference <- ba$before - ba$after
+
+head(ba)
+
+
+# run a Shapiro test on the difference column
+
+shapiro.test(ba$difference)
+
+
+# run a paired t-test to determine if there is a difference in scores 
+# between the before and after columns
+
+t.test(ba$before, ba$after, paired = T)
+
+# what is the CI?
