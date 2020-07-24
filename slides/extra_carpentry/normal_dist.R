@@ -1,5 +1,20 @@
 library(tidyverse)
 
+
+x <- rnorm(n = 1000000, mean = 0.63, sd = 0.289)
+ggplot(data.frame(x), aes(x = x))  + 
+ # geom_histogram(aes(y = ..density..), color = "black", fill = "purple", alpha=.4, binwidth = .05) + 
+  geom_density(alpha = 0.7, fill = "mistyrose") + 
+  theme_classic() +
+  xlab("z' values") +
+  geom_vline(xintercept = (0.63 + (1.96*0.289)), lwd=1, color='red')+
+  geom_vline(xintercept = (0.63 - (1.96*0.289)), lwd=1, color='red')+
+  ggtitle("Fisher Transformed Sampling Distribution for n=15")+
+  geom_vline(xintercept=0.63, lty=2, lwd=1)
+
+
+
+
 set.seed(1)
 
 x1 <- rnorm(n = 1000000, mean = 100, sd = 5.0)
