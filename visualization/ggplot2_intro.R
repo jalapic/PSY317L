@@ -71,23 +71,23 @@ ggplot(films, aes(x=imdb, y=metacritic) ) + geom_point(color='brown')
 
 # 1. For the BlueJays (df) data, plot Head against Skull
 
-ggplot(df, aes(x = Head,  y= Skull)) + geom_point()
+ggplot(df, aes(x = ______,  y= ______)) + geom_point()
 
 # 2. For the BlueJays (df) data, plot Mass against BillLength and color by KnownSex
 
-ggplot(df, aes(x = Mass,  y= BillLength, color = KnownSex)) + geom_point()
+ggplot(____, aes(x = _____,  y= ______, color = ______)) + geom_point()
 
 
 # 3. From the films data, plot imdb against rottentomatoes and make the points red.
 
-ggplot(films, aes(x = imdb,  y= rottentomatoes)) + geom_point(color = 'red')
+ggplot(films, aes(x = _______,  y= _______)) + geom_point(color = _______)
 
 
 # 5. Load in the personality dataset, and plot extraversion against agreeableness.
 
 personality <- read_csv("data/personality.csv")
 head(personality)
-ggplot(personality, aes(x=extraversion, y=agreeableness)) + geom_point()
+ggplot(_______, aes(x=___________, y=_________)) + ______________
 
 
 

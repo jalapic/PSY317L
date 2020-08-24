@@ -194,18 +194,18 @@ BlueJays <- read_csv("data/BlueJays.csv")
 head(BlueJays)
 tail(BlueJays)
 
-ggplot(BlueJays, aes(x= KnownSex, y = Mass)) + geom_boxplot()
+ggplot(BlueJays, aes(x= _________, y = ______)) + __________
 
 
 # now customzie the fill and color of the boxplot. Choose your own colors
 
-ggplot(BlueJays, aes(x= KnownSex, y = Mass)) + 
-  geom_boxplot(fill="mistyrose", color="purple")
+ggplot(BlueJays, aes(x= ______, y = _____)) + 
+  geom_boxplot(fill=______, color=______)
 
 
 # now make the fill of the boxplots different dependent on KnownSex
 
-ggplot(BlueJays, aes(x= KnownSex, y = Mass, fill = KnownSex) ) + 
+ggplot(BlueJays, aes(x= ________, y = _______, _____ = KnownSex) ) + 
   geom_boxplot()
 
 
@@ -221,17 +221,17 @@ table(metro$City)
 # make a boxplot of City on the x-axis and Time on the y-axis. 
 
 
-ggplot(metro,  aes(x=City, y= Time)) + geom_boxplot() 
+ggplot(______,  aes(x=______, y= _____)) + _________
 
 
 # make the same plot, but this time flip the x and y axes.
 
-ggplot(metro,  aes(x=City, y= Time)) + geom_boxplot()  + coord_flip()
+ggplot(______,  aes(x=____, y= ____)) + ________  + _______
 
 
 # keep the same plot, but this time instead of a boxplot do a violin plot
 
-ggplot(metro,  aes(x=City, y= Time)) + geom_violin()  + coord_flip()
+ggplot(_______,  aes(x=______, y= _____)) + _______  + _________
 
 
 

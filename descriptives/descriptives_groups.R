@@ -120,14 +120,14 @@ bmi
 
 # 1. Use 'describeBy' to get summary descriptives for the bmi data according to the grouping variable 'educ'.
 
-describeBy(bmi, group="educ")
+describeBy(_____, group="_____")
 
 
 # 2. Use 'group_by" and "summarise_if" to calculate the means of all numerical columns in the bmi dataset by education level.
 
 bmi %>%
-  group_by(educ) %>%
-  summarise_if(is.numeric, mean, na.rm = TRUE) %>%
+  group_by(_____) %>%
+  summarise_if(is.numeric, _____, na.rm = TRUE) %>%
   as.data.frame()
 
 
@@ -143,9 +143,9 @@ head(pga)
 
 
 pga %>%
-  group_by(year) %>%
-  summarise(mx = mean(driveavg, na.rm=T),
-            sdx = sd(driveavg, na.rm=T)
+  group_by(____) %>%
+  summarise(mx = ____(______, na.rm=T),
+            sdx = ____(_______, na.rm=T)
             ) %>%
   as.data.frame()
 

@@ -191,15 +191,15 @@ ggplot(life, aes(x=lifeExp, fill=year)) +
 
 # Make a histogram of the number of hits (totalH) in the bats dataset
 head(bats)
-ggplot(bats, aes(x = totalH)) + geom_histogram()
+ggplot(bats, aes(x = ______)) + geom_histogram()
 
 
 # Make a histogram of the batting average column (avg) in the bats dataset - make the bindwidth 0.01
-ggplot(bats, aes(x = avg)) + geom_histogram(binwidth = 0.01) 
+ggplot(bats, aes(x = _____)) + geom_histogram(________) 
 
 # Make a histogram of the batting average column (avg) in the bats dataset - 
 # make the bindwidth 0.01, make the outline color white
-ggplot(bats, aes(x = avg)) + geom_histogram(binwidth = 0.01, color="white") 
+ggplot(______, aes(x = _____)) + _____(_________) 
 
 
 
@@ -210,17 +210,17 @@ miami <- read_csv("data/miami.csv")
 head(miami)
 
 # make a histogram of the avgtemp column, make the fill color a light blue
-ggplot(miami, aes(x = avgtemp)) + geom_histogram(fill="cyan")
+ggplot(miami, aes(_________)) + ________
 
 # now change the histogram to a density plot and fill with navy color and set the alpha at 0.2
-ggplot(miami, aes(x = avgtemp)) + geom_density(alpha=0.2, fill="navy")
+ggplot(miami, aes(_____)) + ____________
 
 
 
 
 # overlay the density plot over the histogram for the last two graphs
 ggplot(miami, aes(x = avgtemp))  + 
-  geom_histogram(aes(y = ..density..), color = "black", fill = "cyan") + 
+  geom_histogram(aes(y = __________), color = "black", fill = "cyan") + 
   geom_density(alpha = 0.2, fill = "navy") + 
   theme_minimal()
 

@@ -133,7 +133,7 @@ ggplot(jays, aes(x= Mass, y = Head)) +
 
 # perform a linear regression, examining if mass predicts head size.
 
-mod <- lm(Head ~ Mass, data = jays)
+mod <- lm(_______ ~ _______, data = _______)
 
 # examine the output - what are 'a' and 'b' for the regression?
 mod
@@ -141,7 +141,7 @@ mod
 
 # get the estimates and other linear model output summary:
 
-summary(mod)
+_______(mod)
 
 # what is the R2?
 # what is the standard error of the estimate?
@@ -152,4 +152,4 @@ summary(mod)
 
 # get the confidence intervals for the slope b?
 
-confint(mod)
+_______(mod)

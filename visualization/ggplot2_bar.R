@@ -152,13 +152,12 @@ ggplot(pets, aes(pet)) +
 skittles <- read_csv("data/skittles.csv")
 head(skittles)
 
-ggplot(skittles, aes(x= color, y = number)) +  geom_col()
+ggplot(_____, aes(x= ______, y = _______)) +  _____
 
 
 # next redo that plot, but reorder the x-axis from highest to lowest in number
 
-ggplot(skittles, aes(x= reorder(color, -number), y = number)) +  
-  geom_col()
+ggplot(______, aes(x= reorder(______, _____), y = _____)) +  _____
 
 
 
@@ -180,11 +179,12 @@ table(catcolor$color1) # this gives us a quick summary of the totals for each co
 
 # plot a bar graph of color1 on the x-axis, and counts on the y-axis
 
-ggplot(catcolor, aes(x=color1)) + geom_bar()
+ggplot(_______, aes(x=______)) + ______
+
 
 # next, flip the axes, so the bars are going horizontally.
 
-ggplot(catcolor, aes(x=color1)) + geom_bar() + coord_flip()
+ggplot(catcolor, aes(x=_______)) + ________ + ________
 
 
 # reordering the order of the bars when using geom_bar() is a bit trickier....

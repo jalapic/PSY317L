@@ -108,7 +108,7 @@ tail(covid.df)
 
 # plot a line graph of day (x-axis) against total (y-axis)
 
-ggplot(covid.df, aes(x= day, y= total)) + geom_line()
+ggplot(________, aes(x= ______, y= ______)) + geom_line()
 
 
 # 2. Import the countycovid dataset.
@@ -121,5 +121,5 @@ tail(covid.county)
 # plot a line graph of day (x-axis) against total (y-axis), and make separate lines for each county.
 
 
-ggplot(covid.county, aes(x= day, y= total, color = county)) + 
+ggplot(_______, aes(x= ______, y= _____, color = ______)) + 
   geom_line() 

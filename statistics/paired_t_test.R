@@ -173,7 +173,7 @@ ba <- read_csv("data/beforeafter.csv")
 head(ba)
 
 # make a scatterplot with the x being 'before' and y being 'after'
-ggplot(ba, aes(x=before, y=after)) +
+ggplot(____, aes(x=_____, y=____)) +
   geom_point() +
   theme_classic()+
   geom_abline(intercept =0 , slope = 1)
@@ -181,24 +181,24 @@ ggplot(ba, aes(x=before, y=after)) +
 
 # run a Shapiro test on the before and after columns to check normality
 
-shapiro.test(ba$before)
-shapiro.test(ba$after)
+shapiro.test(_______)
+shapiro.test(_______)
 
 # create a difference column for the difference between before and after
 
-ba$difference <- ba$before - ba$after
+ba$difference <- ba$______ - ba$_______
 
 head(ba)
 
 
 # run a Shapiro test on the difference column
 
-shapiro.test(ba$difference)
+shapiro.test(__________)
 
 
 # run a paired t-test to determine if there is a difference in scores 
 # between the before and after columns
 
-t.test(ba$before, ba$after, paired = T)
+t.test(ba$_____, ba$______, paired = _______)
 
 # what is the CI?

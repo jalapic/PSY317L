@@ -130,15 +130,15 @@ head(jaysF)
 
 # 1. Is the variable "BillLength" approximately normal? Use a Shapiro-Test.
 
-shapiro.test(jaysF$BillLength)
+_________(jaysF$BillLength)
 
 
 # 2. Use t-test, to 
 # i)  Calculate a 95% CI of the female population BillLength mean
 # ii) Test if the sample mean is meaningfully larger than 23.5mm
 
-t.test(jaysF$BillLength, mu = 23.5)   # Confidence interval
+_______(jaysF$BillLength, mu = _____)   # Confidence interval
 
-t.test(jaysF$BillLength, mu = 23.5, alternative = "greater")   #t-test
+_______(jaysF$BillLength, mu = _____, alternative = _______)   #t-test
 
 
